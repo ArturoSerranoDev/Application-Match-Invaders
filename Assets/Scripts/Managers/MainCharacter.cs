@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainCharacter : MonoBehaviour
+public class MainCharacter : Ship
 {
-    public GameObject bulletPrefab;
-    public Transform shootEndPoint;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform shootEndPoint;
     public delegate void OnPlayerHit(int lives);
     public event OnPlayerHit onPlayerHit;
     
     PlayerData playerData;
-
     bool isInCooldown;
+    
     public void Init()
     {
         playerData = new PlayerData();
@@ -40,10 +40,9 @@ public class MainCharacter : MonoBehaviour
         {
             Shoot();
         }
-        
     }
 
-    void Shoot()
+    public override void Shoot()
     {
         // Only one bullet can be shot each time
         if(PoolManager.Instance.GetActiveMembersCount(bulletPrefab) >= playerData.maxBullets ||
@@ -57,8 +56,13 @@ public class MainCharacter : MonoBehaviour
         
         // TODO: Play SFX
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
+    
+    public override void Move(Vector3 direction)
+    {
+        transform.position += direction * (playerData.speed * Time.deltaTime);
+    }
+    
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
         {
@@ -66,12 +70,6 @@ public class MainCharacter : MonoBehaviour
         
             onPlayerHit?.Invoke(playerData.lives);
         }
-  
-    }
-
-    public void Move(Vector3 direction)
-    {
-        transform.position += direction * (playerData.speed * Time.deltaTime);
     }
 
     IEnumerator CooldownCoroutine()

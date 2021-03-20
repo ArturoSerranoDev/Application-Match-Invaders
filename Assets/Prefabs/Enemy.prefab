@@ -30,7 +30,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15, y: 15, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.04}
-  m_Children: []
+  m_Children:
+  - {fileID: 1680690272974353284}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -118,10 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2357db5adfa023e4882b61c28b5a8f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1366015263815399652, guid: feae25dcb78974a4285c6c604b31fb06,
+    type: 3}
+  shootEndPoint: {fileID: 1680690272974353284}
   moveStep: 0.2
   moveDownStep: 0.75
   neighbours: []
-  EnemySpriteRenderer: {fileID: 3927843902562760980}
+  enemySpriteRenderer: {fileID: 3927843902562760980}
 --- !u!61 &2594061010466438404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,3 +152,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.2, y: 1.6}
   m_EdgeRadius: 0
+--- !u!1 &4607345973404792657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1680690272974353284}
+  m_Layer: 0
+  m_Name: Shoot End Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1680690272974353284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607345973404792657}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3927843902562760979}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

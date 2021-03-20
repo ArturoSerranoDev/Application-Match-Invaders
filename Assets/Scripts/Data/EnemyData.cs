@@ -9,6 +9,7 @@
 
 public class EnemyData
 {
+    public float bulletSpeed;
     public int lives;
 
     // Using string instead of enum for colors to easily allow extension

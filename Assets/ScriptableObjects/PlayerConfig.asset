@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   lives: 3
-  maxBullets: 0
+  maxBullets: 1
   speed: 10
   bulletSpeed: 10
+  bulletCooldown: 0.25

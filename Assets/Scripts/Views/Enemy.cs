@@ -9,14 +9,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Ship
 {
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform shootEndPoint;
+
     [SerializeField] float moveStep;
     [SerializeField] float moveDownStep;
     
     public List<Enemy> neighbours = new List<Enemy>();
-    public SpriteRenderer EnemySpriteRenderer;
+    public SpriteRenderer enemySpriteRenderer;
     
     public delegate void OnEnemyKilled(Enemy enemy);
     public event OnEnemyKilled onEnemyKilled;
@@ -27,7 +31,8 @@ public class Enemy : MonoBehaviour
     {
         data = new EnemyData();
         data.lives = config.lives;
-
+        data.bulletSpeed = config.bulletSpeed;
+        
         SetRandomColor(config);
     }
 
@@ -36,7 +41,7 @@ public class Enemy : MonoBehaviour
         int randomColorIndex = Random.Range(0, config.numberOfColors);
         
         data.colorIndex = randomColorIndex;
-        EnemySpriteRenderer.color = config.availableColors[randomColorIndex];
+        enemySpriteRenderer.color = config.availableColors[randomColorIndex];
     }
 
     public void Move(Vector3 direction)
@@ -49,21 +54,25 @@ public class Enemy : MonoBehaviour
         transform.position += Vector3.down * moveDownStep;
     }
 
-    public void Shoot()
+    public override void Shoot()
     {
+        GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
+        newBullet.GetComponent<Bullet>().Init(data.bulletSpeed,Vector3.down);
         
+        // TODO: Play SFX
     }
     
-  
-
     public void OnNeighbourKilled(Enemy enemyNeighbour)
     {
         neighbours.Remove(enemyNeighbour);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        Die(isFirstDeath: true);
+        data.lives -= 1;
+        
+        if (data.lives <= 0)
+            Die(isFirstDeath: true);
     }
 
     void Die(bool isFirstDeath)

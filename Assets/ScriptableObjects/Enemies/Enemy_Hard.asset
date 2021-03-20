@@ -15,7 +15,7 @@ MonoBehaviour:
   minSpeed: 200
   maxSpeed: 500
   lives: 1
-  bulletSpeed: 1
+  bulletSpeed: 10
   numberOfColors: 6
   availableColors:
   - {r: 1, g: 0, b: 0, a: 1}
