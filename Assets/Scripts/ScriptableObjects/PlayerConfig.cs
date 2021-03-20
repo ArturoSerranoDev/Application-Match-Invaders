@@ -12,6 +12,7 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     public int lives;
+    public int maxBullets;
     public float speed;
     public float bulletSpeed;
 }

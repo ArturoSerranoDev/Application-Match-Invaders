@@ -12,6 +12,7 @@ using UnityEngine;
 public class LevelConfig : ScriptableObject
 {
     public EnemyConfig enemyConfig;
+    public PlayerConfig playerConfig;
 
     public int enemiesPerRow;
     public int enemiesPerColumn;

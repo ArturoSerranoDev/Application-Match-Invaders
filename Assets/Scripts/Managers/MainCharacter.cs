@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    [SerializeField] private float speed = 2;
-    void Start()
+    PlayerData playerData;
+
+    public void Init()
     {
-        
+        playerData = new PlayerData();
+    }
+    
+    public void SetData(PlayerConfig playerConfig)
+    {
+        playerData = new PlayerData();
+        playerData.speed = playerConfig.speed;
+        playerData.lives = playerConfig.lives;
+        playerData.bulletSpeed = playerConfig.bulletSpeed;
+        playerData.maxBullets = playerConfig.maxBullets;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
@@ -24,6 +33,6 @@ public class MainCharacter : MonoBehaviour
 
     public void Move(Vector3 direction)
     {
-        transform.position += direction * speed;
+        transform.position += direction * playerData.speed * Time.deltaTime;
     }
 }

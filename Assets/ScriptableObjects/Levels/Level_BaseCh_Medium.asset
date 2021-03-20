@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a81f9893153495489ea61c7d36df742, type: 3}
-  m_Name: BaseCh_Hard
+  m_Name: Level_BaseCh_Medium
   m_EditorClassIdentifier: 
-  enemyConfig: {fileID: 11400000, guid: e1c436642dbe27c49b24a430e449fbdc, type: 2}
+  enemyConfig: {fileID: 11400000, guid: bdd5ca5537893654c8f7dcf69d055abc, type: 2}
+  playerConfig: {fileID: 11400000, guid: 46fdccc334db3b54cad7c2388866a497, type: 2}
   enemiesPerRow: 20
-  enemiesPerColumn: 6
+  enemiesPerColumn: 7

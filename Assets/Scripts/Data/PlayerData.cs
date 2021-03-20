@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class PlayerData
+{
+    // Init for testing purposes
+    public int lives = 3;
+    public float speed = 2;
+    public float maxBullets = 1;
+    public float bulletSpeed = 1;
 }

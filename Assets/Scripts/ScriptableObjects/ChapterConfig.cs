@@ -13,7 +13,6 @@ using UnityEngine;
 public class ChapterConfig : ScriptableObject
 {
     public List<LevelConfig> levels;
-    public PlayerConfig playerConfig;
 
     public int GetNumberOfLevels()
     {
