@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
+    public GameObject bulletPrefab;
+    public Transform shootEndPoint;
+    public delegate void OnPlayerHit(int lives);
+    public event OnPlayerHit onPlayerHit;
+    
     PlayerData playerData;
 
     public void Init()
@@ -29,10 +34,38 @@ public class MainCharacter : MonoBehaviour
         {
             Move(Vector3.right);
         }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
+        }
+        
+    }
+
+    void Shoot()
+    {
+        // Only one bullet can be shot each time
+        if(PoolManager.Instance.GetActiveMembersCount(bulletPrefab) > playerData.maxBullets)
+            return;
+        
+        GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
+        newBullet.GetComponent<Bullet>().Init(4,Vector3.up);
+        
+        // TODO: Play SFX
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            playerData.lives -= 1;
+        
+            onPlayerHit?.Invoke(playerData.lives);
+        }
+  
     }
 
     public void Move(Vector3 direction)
     {
-        transform.position += direction * playerData.speed * Time.deltaTime;
+        transform.position += direction * (playerData.speed * Time.deltaTime);
     }
 }

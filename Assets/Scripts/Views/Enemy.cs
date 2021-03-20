@@ -27,14 +27,24 @@ public class Enemy : MonoBehaviour
         data.colorIndex = randomColorIndex;
         EnemySpriteRenderer.color = config.availableColors[randomColorIndex];
     }
-    
-    public void Destroy()
+
+    public void Move()
     {
         
     }
 
-    public void OnCollisionEnter(Collision other)
+    public void Shoot()
     {
+        
+    }
     
+    public void Despawn()
+    {
+        PoolManager.Instance.Despawn(this.gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Despawn();
     }
 }

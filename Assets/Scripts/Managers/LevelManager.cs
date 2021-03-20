@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         // TODO: Save/load check
+        
         LoadLevel();
     }
 
@@ -38,6 +39,8 @@ public class LevelManager : MonoBehaviour
         LevelConfig levelConfig = chapterConfig.levels[CurrentLevel];
 
         levelBuilder.BuildLevel(levelConfig);
+
+        levelBuilder.Player.onPlayerHit += OnPlayerHit;
         
         StartCoroutine(StartLevelCoroutine());
     }
@@ -46,6 +49,15 @@ public class LevelManager : MonoBehaviour
     {
         // Animation showing player, then bunker, then enemies in rows
         yield return new WaitForEndOfFrame();
+        
+        onGameStart?.Invoke();
+        
+    }
+
+    public void OnPlayerHit(int lives)
+    {
+        if(lives <= 0)
+            Lose();
     }
 
     public void Win()

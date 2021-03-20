@@ -1,18 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bunker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int lives = 5;
+
+    public void Init()
     {
+        lives = 5;
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            lives -= 1;
         
+            if(lives <= 0)
+                Despawn();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Despawn()
     {
-        
+        PoolManager.Instance.Despawn(this.gameObject);
     }
 }
