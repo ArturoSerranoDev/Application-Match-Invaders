@@ -11,6 +11,7 @@ public class MainCharacter : MonoBehaviour
     
     PlayerData playerData;
 
+    bool isInCooldown;
     public void Init()
     {
         playerData = new PlayerData();
@@ -23,6 +24,7 @@ public class MainCharacter : MonoBehaviour
         playerData.lives = playerConfig.lives;
         playerData.bulletSpeed = playerConfig.bulletSpeed;
         playerData.maxBullets = playerConfig.maxBullets;
+        playerData.bulletCooldown = playerConfig.bulletCooldown;
     }
 
     void Update()
@@ -44,11 +46,14 @@ public class MainCharacter : MonoBehaviour
     void Shoot()
     {
         // Only one bullet can be shot each time
-        if(PoolManager.Instance.GetActiveMembersCount(bulletPrefab) > playerData.maxBullets)
+        if(PoolManager.Instance.GetActiveMembersCount(bulletPrefab) >= playerData.maxBullets ||
+           isInCooldown)
             return;
+
+        StartCoroutine(CooldownCoroutine());
         
         GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
-        newBullet.GetComponent<Bullet>().Init(4,Vector3.up);
+        newBullet.GetComponent<Bullet>().Init(playerData.bulletSpeed,Vector3.up);
         
         // TODO: Play SFX
     }
@@ -67,5 +72,12 @@ public class MainCharacter : MonoBehaviour
     public void Move(Vector3 direction)
     {
         transform.position += direction * (playerData.speed * Time.deltaTime);
+    }
+
+    IEnumerator CooldownCoroutine()
+    {
+        isInCooldown = true;
+        yield return new WaitForSeconds(playerData.bulletCooldown);
+        isInCooldown = false;
     }
 }

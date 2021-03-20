@@ -10,4 +10,5 @@ public class PlayerData
     public float speed = 2;
     public float maxBullets = 1;
     public float bulletSpeed = 1;
+    public float bulletCooldown = 1;
 }

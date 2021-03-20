@@ -15,4 +15,5 @@ public class PlayerConfig : ScriptableObject
     public int maxBullets;
     public float speed;
     public float bulletSpeed;
+    public float bulletCooldown;
 }
