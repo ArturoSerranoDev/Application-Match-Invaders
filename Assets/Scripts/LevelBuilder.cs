@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,8 +21,10 @@ public class LevelBuilder : MonoBehaviour
 
     Enemy[,] enemies;
     public MainCharacter Player { get; private set; }
+    public List<Enemy> enemyList = new List<Enemy>();
 
-    
+  
+
     public void BuildLevel(LevelConfig levelConfig)
     {
         // Player
@@ -52,6 +55,7 @@ public class LevelBuilder : MonoBehaviour
 
                 // Add to array for easier handling of neighbours
                 enemies[i,j] = newEnemy;
+                enemyList.Add(newEnemy);
             }
         }
 

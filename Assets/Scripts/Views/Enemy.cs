@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] float moveStep;
+    [SerializeField] float moveDownStep;
+    
     public List<Enemy> neighbours = new List<Enemy>();
     public SpriteRenderer EnemySpriteRenderer;
     
@@ -28,9 +31,14 @@ public class Enemy : MonoBehaviour
         EnemySpriteRenderer.color = config.availableColors[randomColorIndex];
     }
 
-    public void Move()
+    public void Move(Vector3 direction)
     {
-        
+        transform.position += direction * moveStep;
+    }
+
+    public void MoveDown()
+    {
+        transform.position += Vector3.down * moveDownStep;
     }
 
     public void Shoot()
