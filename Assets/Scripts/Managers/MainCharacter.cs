@@ -64,7 +64,7 @@ public class MainCharacter : Ship
     
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("EnemyBullet"))
         {
             playerData.lives -= 1;
         

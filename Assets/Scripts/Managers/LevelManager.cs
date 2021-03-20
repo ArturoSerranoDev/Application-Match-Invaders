@@ -19,8 +19,8 @@ public class LevelManager : MonoBehaviour
     public delegate void OnGameLost();
     public static event OnGameLost onGameLost;
     
-    public int Score { get; private set; }
-    public int CurrentLevel { get; private set; }
+    public static int Score { get; private set; }
+    public static int CurrentLevel { get; private set; }
 
 
     void Start()
@@ -74,18 +74,18 @@ public class LevelManager : MonoBehaviour
     {
         onGameLost?.Invoke();
     }
-
-
-    public void IncrementScore()
-    {
-        Score++;
-        
-        // TODO: Score calculation
-    }
+    
 
     public void Reset()
     {
         Score = 0;
         // reset logic
+    }
+
+    public static void AddScore(int deaths)
+    {
+        Score += ScoreCalculator.GetScorePerKill(deaths);
+        
+        Debug.Log("LevelManager: Score is " + Score.ToString() + " after last kill granted "+ ScoreCalculator.GetScorePerKill(deaths));
     }
 }

@@ -60,23 +60,30 @@ public class EnemyShootManager : MonoBehaviour
             if (PoolManager.Instance.GetActiveMembersCount(enemyBulletPrefab) <= enemyMaxBullets - 1)
             {
                 Enemy closestEnemy = null;
-                int lowestIndex = 100;
-                
-                foreach (Enemy enemy in enemiesPerColumn[index])
-                {
-                    if (enemy.GetVectorIndex().x < lowestIndex)
-                    {
-                        closestEnemy = enemy;
-                        lowestIndex = enemy.GetVectorIndex().x;
-                    }
-                }
-                
+                closestEnemy = GetClosesEnemy(index, closestEnemy);
+
                 if(closestEnemy != null)
                     closestEnemy.Shoot();
             }
             
             yield return new WaitForSeconds(randomWait);
         }
+    }
+
+    Enemy GetClosesEnemy(int index, Enemy closestEnemy)
+    {
+        int lowestIndex = 100;
+
+        foreach (Enemy enemy in enemiesPerColumn[index])
+        {
+            if (enemy.GetVectorIndex().x < lowestIndex)
+            {
+                closestEnemy = enemy;
+                lowestIndex = enemy.GetVectorIndex().x;
+            }
+        }
+
+        return closestEnemy;
     }
 
     void EnableShooting()

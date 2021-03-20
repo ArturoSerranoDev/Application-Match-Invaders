@@ -83,15 +83,21 @@ public class Enemy : Ship
 
     void Die(bool isFirstDeath)
     {
+        int deaths = 1;
         foreach (Enemy neighbour in neighbours)
         {
             neighbour.OnNeighbourKilled(this);
 
-            if(data.colorIndex == neighbour.data.colorIndex &&
-               isFirstDeath)
+            if (data.colorIndex == neighbour.data.colorIndex &&
+                isFirstDeath)
+            {
                 neighbour.Die(isFirstDeath: false);
+                deaths++;
+            }
         }
 
+        if (isFirstDeath)
+            LevelManager.AddScore(deaths);
         onEnemyKilled?.Invoke(this);
         Despawn();
     }

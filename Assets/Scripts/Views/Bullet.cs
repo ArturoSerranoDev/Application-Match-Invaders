@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public bool isEnemyBullet;
+    [SerializeField] bool isEnemyBullet;
     float speed;
 
     public void Init(float speed, Vector3 rot)

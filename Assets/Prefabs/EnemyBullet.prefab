@@ -72,5 +72,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: EnemyBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 6059930650312420967, guid: feae25dcb78974a4285c6c604b31fb06,
+        type: 3}
+      propertyPath: isEnemyBullet
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feae25dcb78974a4285c6c604b31fb06, type: 3}
