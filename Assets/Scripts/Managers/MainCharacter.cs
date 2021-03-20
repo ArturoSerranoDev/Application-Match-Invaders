@@ -89,7 +89,12 @@ public class MainCharacter : Ship
             onPlayerHit?.Invoke(playerData.lives);
         }
     }
-
+    
+    public void Despawn()
+    {
+        PoolManager.Instance.Despawn(this.gameObject);
+    }
+    
     IEnumerator CooldownCoroutine()
     {
         isInCooldown = true;

@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     public static event OnGameWon onGameWon;
     public delegate void OnGameLost();
     public static event OnGameLost onGameLost;
-    public delegate void OnHighScoreReached();
+    public delegate void OnHighScoreReached(int score);
     public static event OnHighScoreReached onHighScoreReached;
     
     public static int Score { get; private set; }
@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         // TODO: Save/load check
+        HighScore = SaveLoadController.Instance.GetLatestHighScore();
         
         LoadLevel();
     }
@@ -83,6 +84,9 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = isPaused ? 0f : 1f;
         onGamePaused?.Invoke(isPaused);
+        
+        if (isPaused)
+            SaveHighScore();
     }
 
     public void GoToMainMenu()
@@ -120,19 +124,43 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("LevelManager: You Won!!");
         onGameWon?.Invoke();
+
+        SaveHighScore();
     }
 
     public void Lose()
     {
         Debug.Log("LevelManager: You Lost!!");
         onGameLost?.Invoke();
+        
+        SaveHighScore();
     }
     
     public void Reset()
     {
+        SaveHighScore();
+        
         Score = 0;
         // reset logic
+        levelBuilder.Reset();
         LoadLevel();
+    }
+    void SaveHighScore()
+    {
+        if (Score > HighScore)
+        {
+            SaveLoadController.Instance.SaveHighScore(Score);
+        }
+    }
+
+    public void OnApplicationPause(bool pauseStatus)
+    {
+        SaveHighScore();
+    }
+    
+    public void OnApplicationQuit()
+    {
+        SaveHighScore();
     }
 
     public static void AddScore(int deaths)
@@ -143,7 +171,9 @@ public class LevelManager : MonoBehaviour
         
         if (Score > HighScore)
         {
-            onHighScoreReached?.Invoke();
+            onHighScoreReached?.Invoke(Score);
         }
     }
+
+   
 }

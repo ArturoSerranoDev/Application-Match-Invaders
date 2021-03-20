@@ -22,7 +22,7 @@ public class Bunker : MonoBehaviour
         }
     }
 
-    void Despawn()
+    public void Despawn()
     {
         PoolManager.Instance.Despawn(this.gameObject);
     }

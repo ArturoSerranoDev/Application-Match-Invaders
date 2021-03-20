@@ -11,6 +11,7 @@ public class GameManager : SingletonPersistent<GameManager>
 
     public delegate void OnGameFinished();
     public static event OnGameFinished onGameFinished;
+    
     public void Play()
     {
         StartCoroutine(LoadScene(gameScene));

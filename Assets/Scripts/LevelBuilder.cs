@@ -21,6 +21,7 @@ public class LevelBuilder : MonoBehaviour
     public MainCharacter Player { get; private set; }
     
     List<Enemy> enemyList = new List<Enemy>();
+    List<Bunker> bunkerList = new List<Bunker>();
     Enemy[,] enemies;
     const int numberOfBunkers = 4;
     
@@ -65,8 +66,10 @@ public class LevelBuilder : MonoBehaviour
             
             Vector3 bunkerPos = bunkerStartingPos - new Vector3(horizontalStep * i, 0);
             
-            GameObject newBunker = PoolManager.Instance.Spawn(bunkerPrefab, bunkerPos, Quaternion.identity);
-            newBunker.GetComponent<Bunker>().Init();
+            GameObject newBunkerGO = PoolManager.Instance.Spawn(bunkerPrefab, bunkerPos, Quaternion.identity);
+            Bunker newBunker = newBunkerGO.GetComponent<Bunker>();
+            newBunker.Init();
+            bunkerList.Add(newBunker);
         }
         
         // Set neighbours of enemies
@@ -86,5 +89,20 @@ public class LevelBuilder : MonoBehaviour
         }
 
         return enemyList;
+    }
+
+    public void Reset()
+    {
+        foreach (Enemy enemy in enemyList)
+        {
+            enemy.Despawn();
+        }
+        
+        foreach (Bunker bunker in bunkerList)
+        {
+            bunker.Despawn();
+        }
+
+        Player.Despawn();
     }
 }

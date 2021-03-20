@@ -40,6 +40,7 @@ public class UIGameManager : MonoBehaviour
         LevelManager.onGameWon += OnGameWon;
         LevelManager.onGameLost += OnGameLost;
         LevelManager.onGamePaused += PauseGame;
+        LevelManager.onHighScoreReached += OnHighScoreReached;
     }
     
     void PauseGame(bool isPaused)
