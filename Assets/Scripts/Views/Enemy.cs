@@ -98,6 +98,7 @@ public class Enemy : Ship
 
         if (isFirstDeath)
             LevelManager.AddScore(deaths);
+        
         onEnemyKilled?.Invoke(this);
         Despawn();
     }

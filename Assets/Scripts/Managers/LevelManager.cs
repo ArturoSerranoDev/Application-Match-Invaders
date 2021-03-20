@@ -6,33 +6,36 @@ using UnityEngine;
 /// <summary> Manages the state of the level </summary>
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] ChapterConfig chapterConfig;
-
+    [SerializeField] UIGameManager uiGameManager;
     [SerializeField] LevelBuilder levelBuilder;
     [SerializeField] EnemyMoveManager enemyMoveManager;
     [SerializeField] EnemyShootManager enemyShootManager;
     
+    [SerializeField] ChapterConfig chapterConfig;
+
+    
     public delegate void OnGameStart();
     public static event OnGameStart onGameStart;
+    public delegate void OnGamePaused(bool isPaused);
+    public static event OnGamePaused onGamePaused;
     public delegate void OnGameWon();
     public static event OnGameWon onGameWon;
     public delegate void OnGameLost();
     public static event OnGameLost onGameLost;
+    public delegate void OnHighScoreReached();
+    public static event OnHighScoreReached onHighScoreReached;
     
     public static int Score { get; private set; }
+    public static int HighScore { get; private set; }
     public static int CurrentLevel { get; private set; }
 
+    bool isPaused;
     int enemiesCount;
     void Start()
     {
         // TODO: Save/load check
         
         LoadLevel();
-    }
-
-    public void LoadFromMenu()
-    {
-        // Get Last level Saved
     }
 
     public void LoadLevel()
@@ -45,9 +48,11 @@ public class LevelManager : MonoBehaviour
         // Init Controllers
         enemyMoveManager.Init(levelConfig.enemyConfig, newEnemyList);
         enemyShootManager.Init(levelConfig, newEnemyList);
+        uiGameManager.Init(levelConfig.playerConfig.lives);
         
         // Callbacks
         levelBuilder.Player.onPlayerHit += OnPlayerHit;
+        levelBuilder.Player.onPlayerHit += uiGameManager.OnPlayerHit;
         enemyMoveManager.onEnemyReachedLimit += Lose;
         
         foreach (Enemy enemy in newEnemyList)
@@ -66,6 +71,33 @@ public class LevelManager : MonoBehaviour
         onGameStart?.Invoke();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        isPaused = !isPaused;
+
+        Time.timeScale = isPaused ? 0f : 1f;
+        onGamePaused?.Invoke(isPaused);
+    }
+
+    public void GoToMainMenu()
+    {
+        GameManager.Instance.GoToHomeMenu();
+    }
+    
+    public void GoToNextLevel()
+    {
+        CurrentLevel += 1;
+        LoadLevel();
+
+        uiGameManager.OnGameStart();
+    }
+
     void OnPlayerHit(int lives)
     {
         // Lose Condition
@@ -80,6 +112,8 @@ public class LevelManager : MonoBehaviour
         // Win Condition
         if (enemiesCount <= 0)
             Win();
+        
+        uiGameManager.UpdateScore(Score);
     }
     
     public void Win()
@@ -98,12 +132,18 @@ public class LevelManager : MonoBehaviour
     {
         Score = 0;
         // reset logic
+        LoadLevel();
     }
 
     public static void AddScore(int deaths)
     {
         Score += ScoreCalculator.GetScorePerKill(deaths);
         
-        Debug.Log("LevelManager: Score is " + Score.ToString() + " after last kill granted "+ ScoreCalculator.GetScorePerKill(deaths));
+        Debug.Log("LevelManager: Score is " + Score.ToString() + " after last kill granted "+ ScoreCalculator.GetScorePerKill(deaths) + " Points!");
+        
+        if (Score > HighScore)
+        {
+            onHighScoreReached?.Invoke();
+        }
     }
 }

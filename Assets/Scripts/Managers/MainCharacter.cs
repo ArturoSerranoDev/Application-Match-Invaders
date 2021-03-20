@@ -11,10 +11,13 @@ public class MainCharacter : Ship
     
     PlayerData playerData;
     bool isInCooldown;
+    bool isInputEnabled;
     
-    public void Init()
+    void Awake()
     {
-        playerData = new PlayerData();
+        LevelManager.onGameStart += EnableInput;
+        LevelManager.onGameWon += DisableInput;
+        LevelManager.onGameLost+= DisableInput;
     }
     
     public void SetData(PlayerConfig playerConfig)
@@ -25,10 +28,25 @@ public class MainCharacter : Ship
         playerData.bulletSpeed = playerConfig.bulletSpeed;
         playerData.maxBullets = playerConfig.maxBullets;
         playerData.bulletCooldown = playerConfig.bulletCooldown;
+
+        isInputEnabled = true;
+    }
+
+    public void EnableInput()
+    {
+        isInputEnabled = true;
+    }
+    
+    public void DisableInput()
+    {
+        isInputEnabled = false;
     }
 
     void Update()
     {
+        if (!isInputEnabled)
+            return;
+        
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             Move(Vector3.left);

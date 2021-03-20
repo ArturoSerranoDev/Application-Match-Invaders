@@ -11,6 +11,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create PlayerConfig", fileName = "PlayerConfig", order = 0)]
 public class PlayerConfig : ScriptableObject
 {
+    [Range(1,3)]
     public int lives;
     public int maxBullets;
     public float speed;
