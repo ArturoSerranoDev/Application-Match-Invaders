@@ -19,15 +19,18 @@ public class LevelBuilder : MonoBehaviour
     public Vector3 bunkerStartingPos;
 
     Enemy[,] enemies;
-    
+    public MainCharacter Player { get; private set; }
 
+    
     public void BuildLevel(LevelConfig levelConfig)
     {
         // Player
         GameObject player = PoolManager.Instance.Spawn(playerPrefab, playerStartingPos, Quaternion.identity);
-        
         MainCharacter playerManager = player.GetComponent<MainCharacter>();
+        
         playerManager.SetData(levelConfig.playerConfig);
+
+        Player = playerManager;
 
         // Enemies
         enemies = new Enemy[levelConfig.enemiesPerColumn, levelConfig.enemiesPerRow];
@@ -60,6 +63,7 @@ public class LevelBuilder : MonoBehaviour
             Vector3 bunkerPos = bunkerStartingPos - new Vector3(horizontalStep * i, 0);
             
             GameObject newBunker = PoolManager.Instance.Spawn(bunkerPrefab, bunkerPos, Quaternion.identity);
+            newBunker.GetComponent<Bunker>().Init();
         }
         
         // Set neighbours of enemies
