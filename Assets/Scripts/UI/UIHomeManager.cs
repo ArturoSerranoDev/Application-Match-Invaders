@@ -6,9 +6,12 @@ using UnityEngine.UI;
 public class UIHomeManager : MonoBehaviour
 {
     [SerializeField] Text highScoreText;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Button playButton;
+    
+    void OnEnable()
     {
+        playButton.onClick.AddListener(GameManager.Instance.Play);
+        
         if (!SaveLoadController.Instance.DoesSaveFileExist())
             return;
         

@@ -38,14 +38,14 @@ public class LevelBuilder : MonoBehaviour
         // Enemies
         enemies = new Enemy[levelConfig.enemiesPerColumn, levelConfig.enemiesPerRow];
         
+        float horizontalStep = (enemyEndPos.x - enemyStartingPos.x) / (levelConfig.enemiesPerRow - 1);
+        float verticalStep = (enemyEndPos.y - enemyStartingPos.y) / (levelConfig.enemiesPerColumn - 1);
+        Debug.Log("Horizontal Step: " + horizontalStep + ", Vertical Step: " + verticalStep);
+        
         for (int i = 0; i < levelConfig.enemiesPerColumn; i++)
         {
             for (int j = 0; j < levelConfig.enemiesPerRow; j++)
             {
-                float horizontalStep = (enemyEndPos.x - enemyStartingPos.x) / (levelConfig.enemiesPerRow - 1);
-                float verticalStep = (enemyEndPos.y - enemyStartingPos.y) / (levelConfig.enemiesPerColumn - 1);
-                Debug.Log("Horizontal Step: " + horizontalStep + ", Vertical Step: " + verticalStep);
-                
                 Vector3 enemyPos = enemyStartingPos + new Vector3(horizontalStep * j, verticalStep * i);
                 
                 GameObject newEnemyGO = PoolManager.Instance.Spawn(enemyPrefab, enemyPos, Quaternion.identity);
@@ -59,11 +59,10 @@ public class LevelBuilder : MonoBehaviour
             }
         }
 
+        horizontalStep = bunkerStartingPos.x * 2 / (numberOfBunkers - 1);
         // Bunkers
         for (int i = 0; i < numberOfBunkers; i++)
         {
-            float horizontalStep = bunkerStartingPos.x * 2 / (numberOfBunkers - 1);
-            
             Vector3 bunkerPos = bunkerStartingPos - new Vector3(horizontalStep * i, 0);
             
             GameObject newBunkerGO = PoolManager.Instance.Spawn(bunkerPrefab, bunkerPos, Quaternion.identity);
@@ -102,7 +101,7 @@ public class LevelBuilder : MonoBehaviour
         {
             bunker.Despawn();
         }
-
-        Player.Despawn();
+        
+        Player?.Despawn();
     }
 }

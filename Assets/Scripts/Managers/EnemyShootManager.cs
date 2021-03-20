@@ -6,9 +6,12 @@
 //
 // Brief: Handles shooting of enemies
 // ----------------------------------------------------------------------------
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyShootManager : MonoBehaviour
 {
@@ -22,11 +25,18 @@ public class EnemyShootManager : MonoBehaviour
     int enemiesPerRow;
     bool isShootingEnabled;
 
-    void Awake()
+    void OnEnable()
     {
         LevelManager.onGameStart += EnableShooting;
         LevelManager.onGameWon += DisableShooting;
         LevelManager.onGameLost += DisableShooting;
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.onGameStart -= EnableShooting;
+        LevelManager.onGameWon -= DisableShooting;
+        LevelManager.onGameLost -= DisableShooting;
     }
 
     public void Init(LevelConfig levelConfig, List<Enemy> enemyList)
@@ -101,5 +111,11 @@ public class EnemyShootManager : MonoBehaviour
         isShootingEnabled = false;
         
         StopAllCoroutines();
+    }
+
+    public void Reset()
+    {
+        StopAllCoroutines();
+        enemiesPerColumn.Clear();
     }
 }

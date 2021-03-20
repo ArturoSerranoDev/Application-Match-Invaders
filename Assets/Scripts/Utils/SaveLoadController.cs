@@ -12,7 +12,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public class SaveLoadController : SingletonPersistent<SaveLoadController>
+public class SaveLoadController : UnitySingletonPersistent<SaveLoadController>
 {
     const string fileName = "/gamesave.save";
     

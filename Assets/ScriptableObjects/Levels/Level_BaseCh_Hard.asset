@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyConfig: {fileID: 11400000, guid: e1c436642dbe27c49b24a430e449fbdc, type: 2}
   playerConfig: {fileID: 11400000, guid: 46fdccc334db3b54cad7c2388866a497, type: 2}
-  enemiesPerRow: 20
-  enemiesPerColumn: 6
+  enemiesPerRow: 14
+  enemiesPerColumn: 5

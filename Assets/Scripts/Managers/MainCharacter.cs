@@ -13,11 +13,18 @@ public class MainCharacter : Ship
     bool isInCooldown;
     bool isInputEnabled;
     
-    void Awake()
+    void OnEnable()
     {
         LevelManager.onGameStart += EnableInput;
         LevelManager.onGameWon += DisableInput;
         LevelManager.onGameLost+= DisableInput;
+    }
+    
+    void OnDisable()
+    {
+        LevelManager.onGameStart -= EnableInput;
+        LevelManager.onGameWon -= DisableInput;
+        LevelManager.onGameLost -= DisableInput;
     }
     
     public void SetData(PlayerConfig playerConfig)

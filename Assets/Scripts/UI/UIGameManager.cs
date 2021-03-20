@@ -23,7 +23,7 @@ public class UIGameManager : MonoBehaviour
     [SerializeField] Text endHighScoreText;
     [SerializeField] Text endScoreText;
     [SerializeField] Text endTitleText;
-    
+
     public void Init(int playerLives)
     {
         foreach (GameObject livesImage in livesImage)
@@ -37,12 +37,24 @@ public class UIGameManager : MonoBehaviour
         }
 
         playScoreText.text = string.Empty;
+    }
+
+    public void OnEnable()
+    {
         LevelManager.onGameWon += OnGameWon;
         LevelManager.onGameLost += OnGameLost;
         LevelManager.onGamePaused += PauseGame;
         LevelManager.onHighScoreReached += OnHighScoreReached;
+    }    
+
+    public void OnDisable()
+    {
+        LevelManager.onGameWon -= OnGameWon;
+        LevelManager.onGameLost -= OnGameLost;
+        LevelManager.onGamePaused -= PauseGame;
+        LevelManager.onHighScoreReached -= OnHighScoreReached;
     }
-    
+
     void PauseGame(bool isPaused)
     {
         if (winLosePanel.activeInHierarchy)
@@ -95,9 +107,14 @@ public class UIGameManager : MonoBehaviour
     {
         playScoreText.text = score.ToString();
     }
+    
     public void ShowEndChapterScreen()
     {
+        endTitleText.text = "Congratulations, you completed this chapter!";
+
         winLosePanel.SetActive(true);
+        goToNextLevelButtonGO.SetActive(false);
+        restartLevelButtonGO.SetActive(false);
     }
 
     public void OnGameStart()

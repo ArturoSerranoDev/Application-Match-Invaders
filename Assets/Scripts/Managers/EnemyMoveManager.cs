@@ -6,6 +6,8 @@
 //
 // Brief: Handles movement of enemies
 // ----------------------------------------------------------------------------
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +28,20 @@ public class EnemyMoveManager : MonoBehaviour
     public delegate void OnEnemyReachedLimit();
     public event OnEnemyReachedLimit onEnemyReachedLimit;
     
-    void Awake()
+    void OnEnable()
     {
         LevelManager.onGameStart += EnableMovement;
         LevelManager.onGameWon += DisableMovement;
         LevelManager.onGameLost += DisableMovement;
     }
-    
+
+    private void OnDisable()
+    {
+        LevelManager.onGameStart -= EnableMovement;
+        LevelManager.onGameWon -= DisableMovement;
+        LevelManager.onGameLost -= DisableMovement;
+    }
+
     public void Init(EnemyConfig enemyConfig, List<Enemy> enemyList)
     {
         moveSpeed = enemyConfig.minSpeed;
@@ -117,5 +126,10 @@ public class EnemyMoveManager : MonoBehaviour
     bool IsEnemyOverVerticalLimit(Transform enemyTransform)
     {
         return enemyTransform.position.y < verticalBoundary;
+    }
+    
+    public void Reset()
+    {
+        enemies.Clear();
     }
 }

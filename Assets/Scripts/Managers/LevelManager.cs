@@ -33,9 +33,9 @@ public class LevelManager : MonoBehaviour
     int enemiesCount;
     void Start()
     {
-        // TODO: Save/load check
         HighScore = SaveLoadController.Instance.GetLatestHighScore();
         
+        Reset();
         LoadLevel();
     }
 
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator StartLevelCoroutine()
     {
         // Animation showing player, then bunker, then enemies in rows
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.25f);
         
         onGameStart?.Invoke();
     }
@@ -91,6 +91,7 @@ public class LevelManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        Time.timeScale = 1f;
         GameManager.Instance.GoToHomeMenu();
     }
     
@@ -125,6 +126,12 @@ public class LevelManager : MonoBehaviour
         Debug.Log("LevelManager: You Won!!");
         onGameWon?.Invoke();
 
+        // End Game
+        if (CurrentLevel >= chapterConfig.GetNumberOfLevels())
+        {
+            uiGameManager.ShowEndChapterScreen();
+        }
+        
         SaveHighScore();
     }
 
@@ -135,15 +142,23 @@ public class LevelManager : MonoBehaviour
         
         SaveHighScore();
     }
-    
+
+    public void ResetButtonPressed()
+    {
+        Reset();
+        LoadLevel();
+    }
     public void Reset()
     {
         SaveHighScore();
-        
         Score = 0;
-        // reset logic
+        
         levelBuilder.Reset();
-        LoadLevel();
+        enemyMoveManager.Reset();
+        enemyShootManager.Reset();
+        PoolManager.Instance.Reset();
+        
+        //uiGameManager.Reset();
     }
     void SaveHighScore()
     {

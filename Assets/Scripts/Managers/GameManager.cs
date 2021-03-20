@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary> Manages the state of the whole application </summary>
-public class GameManager : SingletonPersistent<GameManager>
+public class GameManager : UnitySingletonPersistent<GameManager>
 {
     [SerializeField] private string gameScene;
     [SerializeField] private string homeScene;

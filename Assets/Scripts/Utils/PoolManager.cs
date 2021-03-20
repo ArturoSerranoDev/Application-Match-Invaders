@@ -9,15 +9,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolManager : SingletonPersistent<PoolManager>
+public class PoolManager : UnitySingleton<PoolManager>
 {
     private static Dictionary<GameObject, Pool> pools = new Dictionary<GameObject, Pool>();
     
     void Init(GameObject prefab = null)
     {
-        // if (pools == null)
-        //     pools = new Dictionary<GameObject, Pool>();
-            
         if (prefab != null && !pools.ContainsKey(prefab))
             pools[prefab] = new Pool(prefab, parent: this.transform);
     }
@@ -50,6 +47,11 @@ public class PoolManager : SingletonPersistent<PoolManager>
             return 0;
         
         return pools[go].GetActiveMembersCount();
+    }
+
+    public void Reset()
+    {
+        pools.Clear();
     }
 }
 
