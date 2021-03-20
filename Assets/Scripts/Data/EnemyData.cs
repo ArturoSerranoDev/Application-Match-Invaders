@@ -7,8 +7,6 @@
 // Brief: Holds necessary data for enemies
 // ----------------------------------------------------------------------------
 
-using UnityEngine;
-
 public class EnemyData
 {
     public Position position;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainCharacter : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 2;
     void Start()
     {
         
@@ -15,10 +15,15 @@ public class MainCharacter : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.position += Vector3.left * speed;
+            Move(Vector3.left);
         } else if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.position += Vector3.right * speed;
+            Move(Vector3.right);
         }
+    }
+
+    public void Move(Vector3 direction)
+    {
+        transform.position += direction * speed;
     }
 }
