@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2357db5adfa023e4882b61c28b5a8f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveStep: 0.2
+  moveDownStep: 0.75
   neighbours: []
   EnemySpriteRenderer: {fileID: 3927843902562760980}
 --- !u!61 &2594061010466438404

@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chapterConfig: {fileID: 11400000, guid: bda1fc273b64a0a4f989226d3abb70cb, type: 2}
   levelBuilder: {fileID: 704537330}
+  enemyMoveManager: {fileID: 1832611683}
+  enemyShootManager: {fileID: 1752733823}
 --- !u!4 &279774607
 Transform:
   m_ObjectHideFlags: 0
@@ -584,7 +586,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundaryLimit: 16
-  isMovementEnabled: 0
+  enemies: []
+  moveSpeed: 0
 --- !u!1 &1898202045
 GameObject:
   m_ObjectHideFlags: 0

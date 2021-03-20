@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ChapterConfig chapterConfig;
 
     [SerializeField] LevelBuilder levelBuilder;
+    [SerializeField] EnemyMoveManager enemyMoveManager;
+    [SerializeField] EnemyShootManager enemyShootManager;
     
     public delegate void OnGameStart();
     public static event OnGameStart onGameStart;
@@ -41,6 +43,8 @@ public class LevelManager : MonoBehaviour
         levelBuilder.BuildLevel(levelConfig);
 
         levelBuilder.Player.onPlayerHit += OnPlayerHit;
+        
+        enemyMoveManager.Init(levelConfig.enemyConfig, levelBuilder.enemyList);
         
         StartCoroutine(StartLevelCoroutine());
     }

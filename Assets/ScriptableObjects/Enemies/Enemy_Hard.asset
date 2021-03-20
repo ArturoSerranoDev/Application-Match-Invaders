@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea89b634b70a4a4498ed49088b75a69, type: 3}
   m_Name: Enemy_Hard
   m_EditorClassIdentifier: 
-  minSpeed: 1
-  maxSpeed: 2
+  minSpeed: 200
+  maxSpeed: 500
   lives: 1
   bulletSpeed: 1
   numberOfColors: 6

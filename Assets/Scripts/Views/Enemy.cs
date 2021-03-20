@@ -1,4 +1,12 @@
-﻿using System.Collections;
+﻿// ----------------------------------------------------------------------------
+// Enemy.cs
+//
+// Author: Arturo Serrano
+// Date: 20/02/21
+//
+// Brief: Controls the view and events fired related to the enemy
+// ----------------------------------------------------------------------------
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -53,6 +61,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        onEnemyKilled?.Invoke(this);
         Despawn();
     }
 }
