@@ -5,6 +5,12 @@ using UnityEngine;
 /// <summary> Manages the state of the level </summary>
 public class LevelManager : MonoBehaviour
 {
+    
+    public delegate void OnGameWon();
+    public static event OnGameWon onGameWon;
+    public delegate void OnGameLost();
+    public static event OnGameLost onGameLost;
+    
     public int Score { get; private set; }
     
     void Start()

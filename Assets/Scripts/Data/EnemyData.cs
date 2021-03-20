@@ -11,6 +11,9 @@ public class EnemyData
 {
     public Position position;
     public int lives;
+
+    // Using string instead of enum for colors to easily allow extension
+    public string colorID;
 }
 
 public struct Position
