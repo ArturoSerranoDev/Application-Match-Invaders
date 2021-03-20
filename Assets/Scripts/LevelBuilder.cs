@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour
 {
-    const int numberOfBunkers = 4;
     
     [Header("Prefabs")]
     public GameObject playerPrefab;
@@ -19,13 +18,13 @@ public class LevelBuilder : MonoBehaviour
     public Vector3 enemyEndPos;
     public Vector3 bunkerStartingPos;
 
-    Enemy[,] enemies;
     public MainCharacter Player { get; private set; }
-    public List<Enemy> enemyList = new List<Enemy>();
-
-  
-
-    public void BuildLevel(LevelConfig levelConfig)
+    
+    List<Enemy> enemyList = new List<Enemy>();
+    Enemy[,] enemies;
+    const int numberOfBunkers = 4;
+    
+    public List<Enemy> BuildLevel(LevelConfig levelConfig)
     {
         // Player
         GameObject player = PoolManager.Instance.Spawn(playerPrefab, playerStartingPos, Quaternion.identity);
@@ -85,5 +84,7 @@ public class LevelBuilder : MonoBehaviour
                     enemies[i,j].neighbours.Add(enemies[i,j + 1]);
             }
         }
+
+        return enemyList;
     }
 }

@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour
     public static int Score { get; private set; }
     public static int CurrentLevel { get; private set; }
 
-
+    int enemiesCount;
     void Start()
     {
         // TODO: Save/load check
@@ -37,15 +37,23 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        // Get Level config from chapter
         LevelConfig levelConfig = chapterConfig.levels[CurrentLevel];
 
-        levelBuilder.BuildLevel(levelConfig);
+        List<Enemy> newEnemyList = levelBuilder.BuildLevel(levelConfig);
+        enemiesCount = newEnemyList.Count;
 
-        levelBuilder.Player.onPlayerHit += OnPlayerHit;
+        // Init Controllers
+        enemyMoveManager.Init(levelConfig.enemyConfig, newEnemyList);
+        enemyShootManager.Init(levelConfig, newEnemyList);
         
-        enemyMoveManager.Init(levelConfig.enemyConfig, levelBuilder.enemyList);
-        enemyShootManager.Init(levelConfig, levelBuilder.enemyList);
+        // Callbacks
+        levelBuilder.Player.onPlayerHit += OnPlayerHit;
+        enemyMoveManager.onEnemyReachedLimit += Lose;
+        
+        foreach (Enemy enemy in newEnemyList)
+        {
+            enemy.onEnemyKilled += OnEnemyKilled;
+        }
         
         StartCoroutine(StartLevelCoroutine());
     }
@@ -56,26 +64,36 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         
         onGameStart?.Invoke();
-        
     }
 
-    public void OnPlayerHit(int lives)
+    void OnPlayerHit(int lives)
     {
+        // Lose Condition
         if(lives <= 0)
             Lose();
     }
-
+    
+    void OnEnemyKilled(Enemy enemy)
+    {
+        enemiesCount -= 1;
+        
+        // Win Condition
+        if (enemiesCount <= 0)
+            Win();
+    }
+    
     public void Win()
     {
+        Debug.Log("LevelManager: You Won!!");
         onGameWon?.Invoke();
     }
 
     public void Lose()
     {
+        Debug.Log("LevelManager: You Lost!!");
         onGameLost?.Invoke();
     }
     
-
     public void Reset()
     {
         Score = 0;

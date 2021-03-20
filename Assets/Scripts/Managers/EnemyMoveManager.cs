@@ -12,8 +12,9 @@ using UnityEngine;
 
 public class EnemyMoveManager : MonoBehaviour
 {
-    [SerializeField] float boundaryLimit;
-    public List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] float horizontalBoundary;
+    [SerializeField] float verticalBoundary;
+    List<Enemy> enemies = new List<Enemy>();
 
     Vector3 movementDir = Vector3.right;
     Coroutine movementCoroutine;
@@ -21,6 +22,9 @@ public class EnemyMoveManager : MonoBehaviour
     
     float speedStep;
     float moveSpeed;
+    
+    public delegate void OnEnemyReachedLimit();
+    public event OnEnemyReachedLimit onEnemyReachedLimit;
     
     void Awake()
     {
@@ -45,6 +49,7 @@ public class EnemyMoveManager : MonoBehaviour
     void OnEnemyKilled(Enemy enemy)
     {
         moveSpeed += speedStep;
+        enemies.Remove(enemy);
     }
 
     void EnableMovement()
@@ -72,11 +77,12 @@ public class EnemyMoveManager : MonoBehaviour
         while (isMovementEnabled)
         {
             bool hasToChangeEnemyDir = false;
-            foreach (Enemy enemy in enemies)
+            for (var i = 0; i < enemies.Count; i++)
             {
+                Enemy enemy = enemies[i];
                 enemy.Move(movementDir);
 
-                if (IsEnemyOverLimit(enemy.transform))
+                if (IsEnemyOverHorizontalLimit(enemy.transform))
                     hasToChangeEnemyDir = true;
 
                 yield return new WaitForSeconds(1 / moveSpeed);
@@ -84,19 +90,32 @@ public class EnemyMoveManager : MonoBehaviour
 
             if (hasToChangeEnemyDir)
             {
-                foreach (Enemy enemy in enemies)
+                for (var i = 0; i < enemies.Count; i++)
                 {
+                    Enemy enemy = enemies[i];
                     enemy.MoveDown();
+
+                    // Lose condition
+                    if (IsEnemyOverVerticalLimit(enemy.transform))
+                    {
+                        onEnemyReachedLimit?.Invoke();
+                    }
+
                     yield return new WaitForSeconds(1 / moveSpeed);
                 }
-                
+
+
                 movementDir = -movementDir;
             }
         }
     }
 
-    bool IsEnemyOverLimit(Transform enemyTransform)
+    bool IsEnemyOverHorizontalLimit(Transform enemyTransform)
     {
-        return Mathf.Abs(enemyTransform.position.x) > boundaryLimit;
+        return Mathf.Abs(enemyTransform.position.x) > horizontalBoundary;
+    }
+    bool IsEnemyOverVerticalLimit(Transform enemyTransform)
+    {
+        return enemyTransform.position.y < verticalBoundary;
     }
 }

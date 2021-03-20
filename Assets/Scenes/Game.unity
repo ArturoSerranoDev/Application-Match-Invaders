@@ -220,10 +220,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1366015263815399652, guid: feae25dcb78974a4285c6c604b31fb06,
     type: 3}
   playerStartingPos: {x: 0, y: 0, z: 0}
-  enemyStartingPos: {x: -14, y: 7, z: 0}
-  enemyEndPos: {x: 14, y: 15, z: 0}
+  enemyStartingPos: {x: -14, y: 10, z: 0}
+  enemyEndPos: {x: 14, y: 16, z: 0}
   bunkerStartingPos: {x: 10, y: 2, z: 0}
-  enemyList: []
 --- !u!1 &709550362
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,8 +589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25e30747bd611543a8d185941e340d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundaryLimit: 16
-  enemies: []
+  horizontalBoundary: 16
+  verticalBoundary: 2.5
 --- !u!1 &1898202045
 GameObject:
   m_ObjectHideFlags: 0
