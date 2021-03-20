@@ -54,14 +54,35 @@ public class Enemy : MonoBehaviour
         
     }
     
-    public void Despawn()
+  
+
+    public void OnNeighbourKilled(Enemy enemyNeighbour)
     {
-        PoolManager.Instance.Despawn(this.gameObject);
+        neighbours.Remove(enemyNeighbour);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        Die(isFirstDeath: true);
+    }
+
+    void Die(bool isFirstDeath)
+    {
+        foreach (Enemy neighbour in neighbours)
+        {
+            neighbour.OnNeighbourKilled(this);
+
+            if(data.colorIndex == neighbour.data.colorIndex &&
+               isFirstDeath)
+                neighbour.Die(isFirstDeath: false);
+        }
+
         onEnemyKilled?.Invoke(this);
         Despawn();
+    }
+
+    public void Despawn()
+    {
+        PoolManager.Instance.Despawn(this.gameObject);
     }
 }
