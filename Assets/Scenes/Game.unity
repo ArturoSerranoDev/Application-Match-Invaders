@@ -542,6 +542,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aabe7dc863d7f42af12ac2aa644c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyBulletPrefab: {fileID: 1576625709281031644, guid: eb6620bbf65d30b45bd8ccd32bb09bf0,
+    type: 3}
+  minTimeToShoot: 5
+  maxTimeToShoot: 10
+  enemyMaxBullets: 5
 --- !u!1 &1832611681
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundaryLimit: 16
   enemies: []
-  moveSpeed: 0
 --- !u!1 &1898202045
 GameObject:
   m_ObjectHideFlags: 0

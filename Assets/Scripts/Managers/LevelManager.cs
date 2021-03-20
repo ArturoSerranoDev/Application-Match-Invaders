@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
         levelBuilder.Player.onPlayerHit += OnPlayerHit;
         
         enemyMoveManager.Init(levelConfig.enemyConfig, levelBuilder.enemyList);
+        enemyShootManager.Init(levelConfig, levelBuilder.enemyList);
         
         StartCoroutine(StartLevelCoroutine());
     }

@@ -51,7 +51,7 @@ public class LevelBuilder : MonoBehaviour
                 GameObject newEnemyGO = PoolManager.Instance.Spawn(enemyPrefab, enemyPos, Quaternion.identity);
 
                 Enemy newEnemy = newEnemyGO.GetComponent<Enemy>();
-                newEnemy.SetData(levelConfig.enemyConfig);
+                newEnemy.SetData(levelConfig.enemyConfig, new Vector2Int(i,j));
 
                 // Add to array for easier handling of neighbours
                 enemies[i,j] = newEnemy;

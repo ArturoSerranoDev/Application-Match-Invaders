@@ -7,8 +7,11 @@
 // Brief: Holds necessary data for enemies
 // ----------------------------------------------------------------------------
 
+using UnityEngine;
+
 public class EnemyData
 {
+    public Vector2Int indexPos;
     public float bulletSpeed;
     public int lives;
 

@@ -27,11 +27,12 @@ public class Enemy : Ship
     
     EnemyData data;
     
-    public void SetData(EnemyConfig config)
+    public void SetData(EnemyConfig config, Vector2Int index)
     {
         data = new EnemyData();
         data.lives = config.lives;
         data.bulletSpeed = config.bulletSpeed;
+        data.indexPos = index;
         
         SetRandomColor(config);
     }
@@ -57,7 +58,9 @@ public class Enemy : Ship
     public override void Shoot()
     {
         GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
-        newBullet.GetComponent<Bullet>().Init(data.bulletSpeed,Vector3.down);
+        
+        // Rotate bullet downwards
+        newBullet.GetComponent<Bullet>().Init(data.bulletSpeed,Vector3.right * 180f);
         
         // TODO: Play SFX
     }
@@ -69,6 +72,9 @@ public class Enemy : Ship
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.CompareTag("PlayerBullet"))
+            return;
+        
         data.lives -= 1;
         
         if (data.lives <= 0)
@@ -93,5 +99,10 @@ public class Enemy : Ship
     public void Despawn()
     {
         PoolManager.Instance.Despawn(this.gameObject);
+    }
+
+    public Vector2Int GetVectorIndex()
+    {
+        return data.indexPos;
     }
 }

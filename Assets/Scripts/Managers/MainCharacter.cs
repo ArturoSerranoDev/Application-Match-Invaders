@@ -52,7 +52,7 @@ public class MainCharacter : Ship
         StartCoroutine(CooldownCoroutine());
         
         GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
-        newBullet.GetComponent<Bullet>().Init(playerData.bulletSpeed,Vector3.up);
+        newBullet.GetComponent<Bullet>().Init(playerData.bulletSpeed,Vector3.zero);
         
         // TODO: Play SFX
     }
