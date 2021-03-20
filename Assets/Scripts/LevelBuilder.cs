@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Prefabs")]
+    public GameObject playerPrefab;
+    public GameObject enemyPrefab;
+    public GameObject bunkerPrefab;
+    
+    [Header("Positions")]
+    public Vector3 playerStartingPos;
+    public Vector3 enemyStartingPos;
+    public Vector3 bunkerStartingPos;
+    
+    public void BuildLevel(LevelConfig levelConfig)
     {
+        // Get/Instantiate Player at starting Pos
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        // Load enemies in their pos using pool
         
+        // Load Bunkers with pool at their pos
     }
 }

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private string gameScene;
 
+    public delegate void OnGameFinished();
+    public static event OnGameFinished onGameFinished;
     public void Play()
     {
         StartCoroutine(LoadScene(gameScene));
