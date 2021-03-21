@@ -7,6 +7,7 @@
 // Brief: Handles the creation of dynamic elements in scene
 // ----------------------------------------------------------------------------
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour
@@ -22,6 +23,9 @@ public class LevelBuilder : MonoBehaviour
     [SerializeField] Vector3 enemyEndPos;
     [SerializeField] Vector3 bunkerStartingPos;
 
+    [Header("Intro Animation")] 
+    [SerializeField] Vector3 playerStartingPosAtAnim;
+    [SerializeField] float playerMoveTime;
     public MainCharacter Player { get; private set; }
     
     List<Enemy> enemyList = new List<Enemy>();
@@ -42,7 +46,6 @@ public class LevelBuilder : MonoBehaviour
 
         // Enemies
         enemies = new Enemy[levelConfig.enemiesPerColumn, levelConfig.enemiesPerRow];
-        List<Enemy> enemyList = new List<Enemy>();
         float horizontalStep = (enemyEndPos.x - enemyStartingPos.x) / (levelConfig.enemiesPerRow - 1);
         float verticalStep = (enemyEndPos.y - enemyStartingPos.y) / (levelConfig.enemiesPerColumn - 1);
         Debug.Log("LevelBuilder: Horizontal Step: " + horizontalStep + ", Vertical Step: " + verticalStep);
@@ -54,7 +57,6 @@ public class LevelBuilder : MonoBehaviour
                 Vector3 enemyPos = enemyStartingPos + new Vector3(horizontalStep * j, verticalStep * i);
                 
                 GameObject newEnemyGO = PoolManager.Instance.Spawn(enemyPrefab, enemyPos, Quaternion.identity);
-
                 Enemy newEnemy = newEnemyGO.GetComponent<Enemy>();
                 
                 if(levelConfig.enemyConfig != null)
@@ -110,5 +112,62 @@ public class LevelBuilder : MonoBehaviour
         }
         
         Player?.Despawn();
+    }
+
+    public IEnumerator StartLevelAnimation()
+    {
+        DisableAll();
+        
+        // Move Player first
+        Player.transform.position = playerStartingPosAtAnim;
+        Player.gameObject.SetActive(true);
+
+        float elapsedTime = 0;
+        while (elapsedTime < playerMoveTime)
+        {
+            Player.transform.position = Vector3.Lerp(Player.transform.position, playerStartingPos, (elapsedTime / playerMoveTime));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        // Make sure we got there
+        transform.position = playerStartingPos;
+        
+        // Then Show bunkers
+        foreach (Bunker bunker in bunkerList)
+        {
+            bunker.gameObject.SetActive(true);
+            
+            SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.hit,bunker.GetComponent<AudioSource>(),1f,0.5f);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        yield return new WaitForSeconds(0.2f);
+
+        // Then Show Enemies
+        float pitch = 0.75f;
+        foreach (Enemy enemy in enemyList)
+        {
+            enemy.gameObject.SetActive(true);
+            
+            SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.popSound,enemy.GetComponent<AudioSource>(),0.25f,pitch);
+            pitch += 1f / enemyList.Count;
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    void DisableAll()
+    {
+        foreach (Enemy enemy in enemyList)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+        
+        foreach (Bunker bunker in bunkerList)
+        {
+            bunker.gameObject.SetActive(false);
+        }
+        
+        Player.gameObject.SetActive(false);
     }
 }

@@ -35,8 +35,6 @@ public class MainCharacter : Ship
         playerData.bulletSpeed = playerConfig.bulletSpeed;
         playerData.maxBullets = playerConfig.maxBullets;
         playerData.bulletCooldown = playerConfig.bulletCooldown;
-
-        isInputEnabled = true;
     }
 
     void EnableInput()
@@ -79,7 +77,8 @@ public class MainCharacter : Ship
         GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
         newBullet.GetComponent<Bullet>().Init(playerData.bulletSpeed,Vector3.zero);
         
-        // TODO: Play SFX
+        SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.playerShoot,GetComponent<AudioSource>(),0.5f,Random.Range(0.5f,1f));
+
     }
     
     public override void Move(Vector3 direction)
@@ -94,6 +93,8 @@ public class MainCharacter : Ship
             playerData.lives -= 1;
         
             onPlayerHit?.Invoke(playerData.lives);
+            SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.enemyDestroyed,GetComponent<AudioSource>(),0.5f,Random.Range(0.5f,1f));
+
         }
     }
     

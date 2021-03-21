@@ -127,5 +127,7 @@ public class UIGameManager : MonoBehaviour
         pausePanel.SetActive(false);
         winLosePanel.SetActive(false);
         newHighScoreTextGO.SetActive(false);
+
+        playScoreText.text = string.Empty;
     }
 }

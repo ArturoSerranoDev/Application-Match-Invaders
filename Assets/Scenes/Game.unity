@@ -212,7 +212,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 709550364}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 2
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -756,6 +756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 279774607}
   - component: {fileID: 279774606}
+  - component: {fileID: 279774608}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -794,6 +795,102 @@ Transform:
   m_Father: {fileID: 1404362080}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &279774608
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279774605}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &298973117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,12 +1530,12 @@ MonoBehaviour:
     type: 3}
   bunkerPrefab: {fileID: 6301740559580650115, guid: 4fbdbee441c70d240a0a258811814968,
     type: 3}
-  bulletPrefab: {fileID: 1366015263815399652, guid: feae25dcb78974a4285c6c604b31fb06,
-    type: 3}
   playerStartingPos: {x: 0, y: 0, z: 0}
   enemyStartingPos: {x: -14, y: 10, z: 0}
   enemyEndPos: {x: 14, y: 16, z: 0}
   bunkerStartingPos: {x: 10, y: 2, z: 0}
+  playerStartingPosAtAnim: {x: 0, y: -10, z: 0}
+  playerMoveTime: 1
 --- !u!1 &704968969
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709550362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
+  m_LocalPosition: {x: 0, y: 8, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1898202046}
@@ -1882,7 +1979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2889,7 +2986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3397,6 +3494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1841974357}
+  - component: {fileID: 1841974359}
   - component: {fileID: 1841974358}
   m_Layer: 0
   m_Name: SFX Manager
@@ -3429,7 +3527,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d30923484d596f746ab9a70b4738fd7a, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3515,6 +3613,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1841974359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841974356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1e162c368a94443b119bf52a61c673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 1841974358}
+  backgroundMusic: {fileID: 8300000, guid: d30923484d596f746ab9a70b4738fd7a, type: 3}
+  playerShoot: {fileID: 8300000, guid: 5655051cef2579a489c27344150e3cf5, type: 3}
+  enemyDestroyed: {fileID: 8300000, guid: 7ba65aea9774fc94c94d3243c9a6f3ef, type: 3}
+  hit: {fileID: 8300000, guid: 559fa59db1e33da40b5b1a0ebf60f0ca, type: 3}
+  victoryTheme: {fileID: 8300000, guid: 72fa4cec4b0f80c459386453e37ced43, type: 3}
+  endGameTheme: {fileID: 8300000, guid: 6c66cf6d16706a7438d959c57b474e76, type: 3}
+  defeatTheme: {fileID: 8300000, guid: 37e61a01aaa0b33408ddb7032aac12ab, type: 3}
+  popSound: {fileID: 8300000, guid: b4d31be13bba5f24d828ecc099a4c883, type: 3}
 --- !u!1 &1890560292
 GameObject:
   m_ObjectHideFlags: 0

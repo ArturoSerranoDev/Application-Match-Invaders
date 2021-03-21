@@ -16,6 +16,9 @@ public class Enemy : Ship
     public Transform shootEndPoint; 
     public GameObject bulletPrefab;
 
+    public Sprite enemyFirstSprite;
+    public Sprite enemySecondSprite;
+
     [SerializeField] float moveStep = 0.15f;
     [SerializeField] float moveDownStep= 0.5f;
     
@@ -26,7 +29,7 @@ public class Enemy : Ship
     public event OnEnemyKilled onEnemyKilled;
     
     EnemyData enemyData;
-    
+    bool isFirstSprite;
     public void SetData(EnemyConfig config, Vector2Int index)
     {
         enemyData = new EnemyData();
@@ -48,6 +51,13 @@ public class Enemy : Ship
     public void Move(Vector3 direction)
     {
         transform.position += direction * moveStep;
+
+        CycleSprite();
+    }
+
+    void CycleSprite()
+    {
+        enemySpriteRenderer.sprite = isFirstSprite ? enemySecondSprite : enemyFirstSprite;
     }
 
     public void MoveDown()
@@ -62,7 +72,8 @@ public class Enemy : Ship
         // Rotate bullet downwards
         newBullet.GetComponent<Bullet>().Init(enemyData.bulletSpeed,Vector3.right * 180f);
         
-        // TODO: Play SFX
+        SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.playerShoot,GetComponent<AudioSource>(),0.25f,Random.Range(0.25f,0.5f));
+
     }
     
     public void OnNeighbourKilled(Enemy enemyNeighbour)
@@ -101,6 +112,9 @@ public class Enemy : Ship
         
         onEnemyKilled?.Invoke(this);
         Despawn();
+        
+        SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.enemyDestroyed,SFXPlayer.Instance.musicSource,0.5f,Random.Range(0.1f,2f));
+
     }
 
     public void Despawn()

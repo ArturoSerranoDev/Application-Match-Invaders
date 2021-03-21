@@ -21,9 +21,12 @@ public class Bunker : MonoBehaviour
         if (collision.CompareTag("EnemyBullet"))
         {
             lives -= 1;
-        
-            if(lives <= 0)
+
+            if (lives <= 0)
+            {
+                SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.enemyDestroyed,SFXPlayer.Instance.musicSource,0.5f,Random.Range(0.1f,0.2f));
                 Despawn();
+            }
         }
     }
 

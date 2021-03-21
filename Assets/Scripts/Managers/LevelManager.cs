@@ -5,13 +5,14 @@ using UnityEngine;
 /// <summary> Manages the state of the level </summary>
 public class LevelManager : MonoBehaviour
 {
+    [Header("Managers")]
     [SerializeField] UIGameManager uiGameManager;
     [SerializeField] LevelBuilder levelBuilder;
     [SerializeField] EnemyMoveManager enemyMoveManager;
     [SerializeField] EnemyShootManager enemyShootManager;
     
     [SerializeField] ChapterConfig chapterConfig;
-    
+
     public delegate void OnGameStart();
     public static event OnGameStart onGameStart;
     public delegate void OnGamePaused(bool isPaused);
@@ -66,9 +67,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator StartLevelCoroutine()
     {
-        // Animation showing player, then bunker, then enemies in rows
-        yield return new WaitForSeconds(0.25f);
-        
+        yield return StartCoroutine(levelBuilder.StartLevelAnimation());
         onGameStart?.Invoke();
     }
 
@@ -135,9 +134,14 @@ public class LevelManager : MonoBehaviour
         if (CurrentLevel >= chapterConfig.GetNumberOfLevels())
         {
             uiGameManager.ShowEndChapterScreen();
+            SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.endGameTheme,GetComponent<AudioSource>(),0.5f,1);
         }
+        else
+            SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.victoryTheme,GetComponent<AudioSource>(),0.5f,1);
+
         
         SaveHighScore();
+        
     }
 
     void Lose()
@@ -146,6 +150,8 @@ public class LevelManager : MonoBehaviour
         onGameLost?.Invoke();
         
         SaveHighScore();
+        
+        SFXPlayer.Instance.PlaySFX(SFXPlayer.Instance.defeatTheme,GetComponent<AudioSource>(),0.5f,1);
     }
 
     public void ResetButtonPressed()
