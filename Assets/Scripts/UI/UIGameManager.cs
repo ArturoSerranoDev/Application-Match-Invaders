@@ -15,6 +15,7 @@ public class UIGameManager : MonoBehaviour
 {
     [Header("Game Panel")] 
     [SerializeField] Text playScoreText;
+    [SerializeField] GameObject closeHighScoreGO;
     [SerializeField] GameObject newHighScoreTextGO;
     [SerializeField] List<GameObject> livesImage;
     
@@ -50,6 +51,7 @@ public class UIGameManager : MonoBehaviour
         LevelManager.onGameLost += OnGameLost;
         LevelManager.onGamePaused += PauseGame;
         LevelManager.onHighScoreReached += OnHighScoreReached;
+        LevelManager.onCloseToHighScoreReached += OnCloseHighScoreReached;
     }    
 
     public void OnDisable()
@@ -58,6 +60,7 @@ public class UIGameManager : MonoBehaviour
         LevelManager.onGameLost -= OnGameLost;
         LevelManager.onGamePaused -= PauseGame;
         LevelManager.onHighScoreReached -= OnHighScoreReached;
+        LevelManager.onCloseToHighScoreReached -= OnCloseHighScoreReached;
     }
 
     void PauseGame(bool isPaused)
@@ -90,10 +93,24 @@ public class UIGameManager : MonoBehaviour
     {
         StartCoroutine(PlayHighScoreAnimation());
     }
+    
+    void OnCloseHighScoreReached()
+    {
+        StartCoroutine(PlayHighScoreCloseAnimation());
+    }
 
+    IEnumerator PlayHighScoreCloseAnimation()
+    {
+        closeHighScoreGO.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        closeHighScoreGO.SetActive(false);
+    }
+    
     IEnumerator PlayHighScoreAnimation()
     {
-        yield return new WaitForEndOfFrame();
+        newHighScoreTextGO.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        newHighScoreTextGO.SetActive(false);
     }
     
     void ShowEndLevelScreen(bool isVictory)

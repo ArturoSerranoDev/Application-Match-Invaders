@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary> Manages the state of the level </summary>
 public class LevelManager : MonoBehaviour
 {
+    const int closeToHighScore = 30;
+
     [Header("Managers")]
     [SerializeField] UIGameManager uiGameManager;
     [SerializeField] LevelBuilder levelBuilder;
@@ -23,10 +25,13 @@ public class LevelManager : MonoBehaviour
     public static event OnGameLost onGameLost;
     public delegate void OnHighScoreReached(int score);
     public static event OnHighScoreReached onHighScoreReached;
+    public delegate void OnCloseToHighScoreReached();
+    public static event OnCloseToHighScoreReached onCloseToHighScoreReached;
     
     public static int Score { get; private set; }
     public static int HighScore { get; private set; }
     static int CurrentLevel { get; set; }
+    static bool isHighScoreReached;
 
     bool isPaused;
     int enemiesCount;
@@ -35,7 +40,8 @@ public class LevelManager : MonoBehaviour
     {
         HighScore = SaveLoadController.Instance.GetLatestHighScore();
         Score = 0;
-
+        isHighScoreReached = false;
+        
         Reset();
         LoadLevel();
     }
@@ -90,6 +96,8 @@ public class LevelManager : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        SaveHighScore();
+
         Time.timeScale = 1f;
         Score = 0;
         CurrentLevel = 0;
@@ -157,7 +165,8 @@ public class LevelManager : MonoBehaviour
     public void ResetButtonPressed()
     {
         Score = 0;
-
+        isHighScoreReached = false;
+        
         Reset();
         LoadLevel();
     }
@@ -195,10 +204,21 @@ public class LevelManager : MonoBehaviour
         Score += ScoreCalculator.GetScorePerKill(deaths);
         
         Debug.Log("LevelManager: Score is " + Score.ToString() + " after last kill granted "+ ScoreCalculator.GetScorePerKill(deaths) + " Points!");
+
+        if (isHighScoreReached)
+        {
+            HighScore = Score;
+            return;
+        }
         
         if (Score > HighScore)
         {
             onHighScoreReached?.Invoke(Score);
+            isHighScoreReached = true;
+        }
+        else if (Score + closeToHighScore > HighScore)
+        {
+            onCloseToHighScoreReached?.Invoke();
         }
     }
 

@@ -24,6 +24,8 @@ namespace Tests
             GameObject playerGO = GameObject.Instantiate(Resources.Load("PlayerTest") as GameObject);
             player = playerGO.GetComponent<MainCharacter>();
             player.SetData(ScriptableObject.CreateInstance<PlayerConfig>());
+            GameObject sfxPlayerGO = MonoBehaviour.Instantiate(Resources.Load("SFXManagerTest") as GameObject, 
+                Vector3.zero,Quaternion.identity);
         }
         
         [UnityTest]

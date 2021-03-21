@@ -21,8 +21,11 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            GameObject enemyGO = new GameObject();
-            enemy = enemyGO.AddComponent<Enemy>();
+            GameObject enemyGO = MonoBehaviour.Instantiate(Resources.Load("EnemyTest") as GameObject);
+            enemy = enemyGO.GetComponent<Enemy>();
+            
+            GameObject sfxPlayerGO = MonoBehaviour.Instantiate(Resources.Load("SFXManagerTest") as GameObject, 
+                Vector3.zero,Quaternion.identity);
         }
         
         [UnityTest]

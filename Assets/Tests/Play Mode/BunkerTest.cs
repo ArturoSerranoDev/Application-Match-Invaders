@@ -23,6 +23,8 @@ namespace Tests
         {
             GameObject bunkerGO = PoolManager.Instance.Spawn(Resources.Load("BunkerTest") as GameObject, 
                                                              Vector3.zero,Quaternion.identity);
+            GameObject sfxPlayerGO = MonoBehaviour.Instantiate(Resources.Load("SFXManagerTest") as GameObject, 
+                Vector3.zero,Quaternion.identity);
             bunker = bunkerGO.GetComponent<Bunker>();
             bunker.Init();
         }
