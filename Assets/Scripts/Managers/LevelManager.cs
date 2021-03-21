@@ -183,7 +183,7 @@ public class LevelManager : MonoBehaviour
     }
     void SaveHighScore()
     {
-        if (Score > HighScore)
+        if (Score >= HighScore)
         {
             SaveLoadController.Instance.SaveHighScore(Score);
         }
