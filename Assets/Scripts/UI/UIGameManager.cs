@@ -1,4 +1,11 @@
-﻿using System;
+﻿// ----------------------------------------------------------------------------
+// UIGameManager.cs
+//
+// Author: Arturo Serrano
+// Date: 20/02/21
+//
+// Brief: Controls UI elements inside Game Scene
+// ----------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,8 +96,7 @@ public class UIGameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
     }
     
-
-    public void ShowEndLevelScreen(bool isVictory)
+    void ShowEndLevelScreen(bool isVictory)
     {
         winLosePanel.SetActive(true);
         

@@ -5,7 +5,6 @@ using UnityEngine;
 public class MainCharacter : Ship
 {
     public GameObject bulletPrefab;
-    
     [SerializeField] Transform shootEndPoint;
     public delegate void OnPlayerHit(int lives);
     public event OnPlayerHit onPlayerHit;
@@ -40,12 +39,12 @@ public class MainCharacter : Ship
         isInputEnabled = true;
     }
 
-    public void EnableInput()
+    void EnableInput()
     {
         isInputEnabled = true;
     }
     
-    public void DisableInput()
+    void DisableInput()
     {
         isInputEnabled = false;
     }

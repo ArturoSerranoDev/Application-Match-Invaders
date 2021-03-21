@@ -1,5 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// ----------------------------------------------------------------------------
+// UIHomeManager.cs
+//
+// Author: Arturo Serrano
+// Date: 20/02/21
+//
+// Brief: Controls UI elements inside Home Scene
+// ----------------------------------------------------------------------------
 using UnityEngine;
 using UnityEngine.UI;
 

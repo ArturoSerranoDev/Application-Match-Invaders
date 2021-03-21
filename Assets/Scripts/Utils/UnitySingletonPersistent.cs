@@ -8,9 +8,9 @@
 // ----------------------------------------------------------------------------
 using UnityEngine;
 
-public class UnitySingletonPersistent<T> : MonoBehaviour where T : Component
+public abstract class UnitySingletonPersistent<T> : MonoBehaviour where T : Component
 {
-    protected static bool isApplicationQuitting;
+    static bool isApplicationQuitting;
     static T instance;
     
     public static T Instance
@@ -58,8 +58,9 @@ public class UnitySingletonPersistent<T> : MonoBehaviour where T : Component
 
 public abstract class UnitySingleton<T> : MonoBehaviour where T : Component
 {
-    protected static bool isApplicationQuitting;
-    protected static T instance;
+    static bool isApplicationQuitting;
+    static T instance;
+    
     public static T Instance
     {
         get

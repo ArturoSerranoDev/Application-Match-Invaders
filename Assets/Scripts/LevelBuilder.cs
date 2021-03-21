@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿// ----------------------------------------------------------------------------
+// LevelBuilder.cs
+//
+// Author: Arturo Serrano
+// Date: 20/02/21
+//
+// Brief: Handles the creation of dynamic elements in scene
+// ----------------------------------------------------------------------------
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelBuilder : MonoBehaviour
 {
-    
     [Header("Prefabs")]
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
-    public GameObject bunkerPrefab;
-    public GameObject bulletPrefab;
+    [SerializeField] GameObject playerPrefab;
+    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject bunkerPrefab;
     
     [Header("Positions")]
-    public Vector3 playerStartingPos;
-    public Vector3 enemyStartingPos;
-    public Vector3 enemyEndPos;
-    public Vector3 bunkerStartingPos;
+    [SerializeField] Vector3 playerStartingPos;
+    [SerializeField] Vector3 enemyStartingPos;
+    [SerializeField] Vector3 enemyEndPos;
+    [SerializeField] Vector3 bunkerStartingPos;
 
     public MainCharacter Player { get; private set; }
     
@@ -38,10 +42,10 @@ public class LevelBuilder : MonoBehaviour
 
         // Enemies
         enemies = new Enemy[levelConfig.enemiesPerColumn, levelConfig.enemiesPerRow];
-        
+        List<Enemy> enemyList = new List<Enemy>();
         float horizontalStep = (enemyEndPos.x - enemyStartingPos.x) / (levelConfig.enemiesPerRow - 1);
         float verticalStep = (enemyEndPos.y - enemyStartingPos.y) / (levelConfig.enemiesPerColumn - 1);
-        Debug.Log("Horizontal Step: " + horizontalStep + ", Vertical Step: " + verticalStep);
+        Debug.Log("LevelBuilder: Horizontal Step: " + horizontalStep + ", Vertical Step: " + verticalStep);
         
         for (int i = 0; i < levelConfig.enemiesPerColumn; i++)
         {

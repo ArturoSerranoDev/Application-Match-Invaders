@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] EnemyShootManager enemyShootManager;
     
     [SerializeField] ChapterConfig chapterConfig;
-
     
     public delegate void OnGameStart();
     public static event OnGameStart onGameStart;
@@ -27,7 +25,7 @@ public class LevelManager : MonoBehaviour
     
     public static int Score { get; private set; }
     public static int HighScore { get; private set; }
-    public static int CurrentLevel { get; private set; }
+    static int CurrentLevel { get; set; }
 
     bool isPaused;
     int enemiesCount;
@@ -41,7 +39,7 @@ public class LevelManager : MonoBehaviour
         LoadLevel();
     }
 
-    public void LoadLevel()
+    void LoadLevel()
     {
         LevelConfig levelConfig = chapterConfig.levels[CurrentLevel];
 
@@ -66,7 +64,7 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(StartLevelCoroutine());
     }
 
-    private IEnumerator StartLevelCoroutine()
+    IEnumerator StartLevelCoroutine()
     {
         // Animation showing player, then bunker, then enemies in rows
         yield return new WaitForSeconds(0.25f);
@@ -94,6 +92,9 @@ public class LevelManager : MonoBehaviour
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
+        Score = 0;
+        CurrentLevel = 0;
+        
         GameManager.Instance.GoToHomeMenu();
     }
     
@@ -123,7 +124,7 @@ public class LevelManager : MonoBehaviour
         uiGameManager.UpdateScore(Score);
     }
     
-    public void Win()
+    void Win()
     {
         Debug.Log("LevelManager: You Won!!");
         Debug.Log(chapterConfig.GetNumberOfLevels());
@@ -139,7 +140,7 @@ public class LevelManager : MonoBehaviour
         SaveHighScore();
     }
 
-    public void Lose()
+    void Lose()
     {
         Debug.Log("LevelManager: You Lost!!");
         onGameLost?.Invoke();

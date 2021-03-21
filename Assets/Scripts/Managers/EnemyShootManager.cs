@@ -6,8 +6,6 @@
 //
 // Brief: Handles shooting of enemies
 // ----------------------------------------------------------------------------
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +18,7 @@ public class EnemyShootManager : MonoBehaviour
     public float maxTimeToShoot;
     public int enemyMaxBullets;
 
-    Dictionary<int, List<Enemy>> enemiesPerColumn = new Dictionary<int, List<Enemy>>();
+    readonly Dictionary<int, List<Enemy>> enemiesPerColumn = new Dictionary<int, List<Enemy>>();
 
     int enemiesPerRow;
     bool isShootingEnabled;

@@ -6,8 +6,6 @@
 //
 // Brief: Handles movement of enemies
 // ----------------------------------------------------------------------------
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,7 +33,7 @@ public class EnemyMoveManager : MonoBehaviour
         LevelManager.onGameLost += DisableMovement;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         LevelManager.onGameStart -= EnableMovement;
         LevelManager.onGameWon -= DisableMovement;
@@ -61,7 +59,7 @@ public class EnemyMoveManager : MonoBehaviour
         enemies.Remove(enemy);
     }
 
-    public void EnableMovement()
+    void EnableMovement()
     {
         isMovementEnabled = true;
 

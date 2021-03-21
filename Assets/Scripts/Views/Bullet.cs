@@ -4,7 +4,7 @@
 // Author: Arturo Serrano
 // Date: 20/02/21
 //
-// Brief: Controls bullet behaviour. Moves it forward at a constant rate
+// Brief: Controls bullet view and behaviour. Moves it forward at a constant rate
 // ----------------------------------------------------------------------------
 using System.Collections;
 using System.Collections.Generic;

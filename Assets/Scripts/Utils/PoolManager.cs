@@ -70,7 +70,6 @@ public class PoolableObject: MonoBehaviour
 public class Pool
 {
     public List<GameObject> pooledObjects = new List<GameObject>();
-    //Queue<GameObject> inactive = new Queue<GameObject>();
 
     GameObject prefab;
     GameObject poolParent;

@@ -15,7 +15,6 @@ namespace Tests
         [Test]
         public void ScoreCalculationOneKillPasses()
         {
-            
             Assert.AreEqual(10,ScoreCalculator.GetScorePerKill(1));
         }
         
