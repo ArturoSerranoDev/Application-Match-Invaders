@@ -13,8 +13,8 @@ public class PlayerConfig : ScriptableObject
 {
     [Range(1,3)]
     public int lives;
-    public int maxBullets;
-    public float speed;
-    public float bulletSpeed;
+    public int maxBullets = 10;
+    public float speed = 10;
+    public float bulletSpeed = 10;
     public float bulletCooldown;
 }

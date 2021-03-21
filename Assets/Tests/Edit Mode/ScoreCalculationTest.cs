@@ -1,26 +1,46 @@
 ﻿// ----------------------------------------------------------------------------
-// EnemyData.cs
+// ScoreCalculationTest.cs
 //
 // Author: Arturo Serrano
 // Date: 20/02/21
 //
-// Brief: Holds necessary data for enemies
+// Brief: Test - Check score calculation
 // ----------------------------------------------------------------------------
-
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Tests
 {
     public class ScoreCalculationTest
     {
         [Test]
-        public void ScoreCalculationTestSimplePasses()
+        public void ScoreCalculationOneKillPasses()
         {
-            Assert.AreEqual(0,1);
+            
+            Assert.AreEqual(10,ScoreCalculator.GetScorePerKill(1));
+        }
+        
+        [Test]
+        public void ScoreCalculationTwoKillsPasses()
+        {
+            Assert.AreEqual(40,ScoreCalculator.GetScorePerKill(2));
+        }
+        
+        [Test]
+        public void ScoreCalculationThreeKillsPasses()
+        {
+            Assert.AreEqual(90,ScoreCalculator.GetScorePerKill(3));
+        }
+        
+        [Test]
+        public void ScoreCalculationFourKillsPasses()
+        {
+            Assert.AreEqual(200,ScoreCalculator.GetScorePerKill(4));
+        }
+        
+        [Test]
+        public void ScoreCalculationFiveKillsPasses()
+        {
+            Assert.AreEqual(400,ScoreCalculator.GetScorePerKill(5));
         }
         
     }

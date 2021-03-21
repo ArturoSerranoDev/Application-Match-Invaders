@@ -13,8 +13,8 @@ using UnityEngine.Serialization;
 
 public class Enemy : Ship
 {
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Transform shootEndPoint;
+    public Transform shootEndPoint; 
+    public GameObject bulletPrefab;
 
     [SerializeField] float moveStep;
     [SerializeField] float moveDownStep;
@@ -25,14 +25,14 @@ public class Enemy : Ship
     public delegate void OnEnemyKilled(Enemy enemy);
     public event OnEnemyKilled onEnemyKilled;
     
-    EnemyData data;
+    EnemyData enemyData;
     
     public void SetData(EnemyConfig config, Vector2Int index)
     {
-        data = new EnemyData();
-        data.lives = config.lives;
-        data.bulletSpeed = config.bulletSpeed;
-        data.indexPos = index;
+        enemyData = new EnemyData();
+        enemyData.lives = config.lives;
+        enemyData.bulletSpeed = config.bulletSpeed;
+        enemyData.indexPos = index;
         
         SetRandomColor(config);
     }
@@ -41,11 +41,11 @@ public class Enemy : Ship
     {
         int randomColorIndex = Random.Range(0, config.numberOfColors);
         
-        data.colorIndex = randomColorIndex;
+        enemyData.colorIndex = randomColorIndex;
         enemySpriteRenderer.color = config.availableColors[randomColorIndex];
     }
 
-    public void Move(Vector3 direction)
+    public void Move(Vector3 direction, float moveStep = 0.5f)
     {
         transform.position += direction * moveStep;
     }
@@ -60,7 +60,7 @@ public class Enemy : Ship
         GameObject newBullet = PoolManager.Instance.Spawn(bulletPrefab, shootEndPoint.position, Quaternion.identity);
         
         // Rotate bullet downwards
-        newBullet.GetComponent<Bullet>().Init(data.bulletSpeed,Vector3.right * 180f);
+        newBullet.GetComponent<Bullet>().Init(enemyData.bulletSpeed,Vector3.right * 180f);
         
         // TODO: Play SFX
     }
@@ -75,9 +75,9 @@ public class Enemy : Ship
         if (!collision.CompareTag("PlayerBullet"))
             return;
         
-        data.lives -= 1;
+        enemyData.lives -= 1;
         
-        if (data.lives <= 0)
+        if (enemyData.lives <= 0)
             Die(isFirstDeath: true);
     }
 
@@ -88,7 +88,7 @@ public class Enemy : Ship
         {
             neighbour.OnNeighbourKilled(this);
 
-            if (data.colorIndex == neighbour.data.colorIndex &&
+            if (enemyData.colorIndex == neighbour.enemyData.colorIndex &&
                 isFirstDeath)
             {
                 neighbour.Die(isFirstDeath: false);
@@ -110,6 +110,6 @@ public class Enemy : Ship
 
     public Vector2Int GetVectorIndex()
     {
-        return data.indexPos;
+        return enemyData.indexPos;
     }
 }

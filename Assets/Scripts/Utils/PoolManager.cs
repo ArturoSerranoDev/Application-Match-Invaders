@@ -41,6 +41,12 @@ public class PoolManager : UnitySingleton<PoolManager>
         
         return pools[go].GetMembersInPool();
     }
+
+    public Pool GetObjectPool(GameObject go)
+    {
+        return pools[go];
+    }
+    
     public int GetActiveMembersCount(GameObject go)
     {
         if (!pools.ContainsKey(go))
@@ -63,7 +69,7 @@ public class PoolableObject: MonoBehaviour
 
 public class Pool
 {
-    List<GameObject> pooledObjects = new List<GameObject>();
+    public List<GameObject> pooledObjects = new List<GameObject>();
     //Queue<GameObject> inactive = new Queue<GameObject>();
 
     GameObject prefab;

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MainCharacter : Ship
 {
-    [SerializeField] GameObject bulletPrefab;
+    public GameObject bulletPrefab;
+    
     [SerializeField] Transform shootEndPoint;
     public delegate void OnPlayerHit(int lives);
     public event OnPlayerHit onPlayerHit;

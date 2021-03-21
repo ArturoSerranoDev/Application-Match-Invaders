@@ -61,7 +61,7 @@ public class EnemyMoveManager : MonoBehaviour
         enemies.Remove(enemy);
     }
 
-    void EnableMovement()
+    public void EnableMovement()
     {
         isMovementEnabled = true;
 
@@ -90,7 +90,7 @@ public class EnemyMoveManager : MonoBehaviour
             {
                 Enemy enemy = enemies[i];
                 enemy.Move(movementDir);
-
+                Debug.Log("Aaaaaaaa");
                 if (IsEnemyOverHorizontalLimit(enemy.transform))
                     hasToChangeEnemyDir = true;
 

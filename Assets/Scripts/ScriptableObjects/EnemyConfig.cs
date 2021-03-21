@@ -13,10 +13,12 @@ using UnityEngine;
 
 public class EnemyConfig : ScriptableObject
 {
-    public float minSpeed;
-    public float maxSpeed;
-    public int lives;
-    public int bulletSpeed;
-    public int numberOfColors;
-    public List<Color> availableColors;
+    // Init for testing
+    public float minSpeed = 100;
+    public float maxSpeed = 200;
+    public int lives = 1;
+    
+    public int bulletSpeed = 10;
+    public int numberOfColors = 1;
+    public List<Color> availableColors = new List<Color>() {Color.black};
 }
