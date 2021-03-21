@@ -10,12 +10,13 @@
 
 First of all, this was a pretty interesting project to complete, I had a lot of fun playing it after completion.
 
-My estimations were pretty optimistic **(8:20 hours)** but I completed it in over **12 hours** (without taking into account breaks). It wasn't a difficulty issue but more related to the time needed to implement several features at doing so with SOLID principles in mind.
+My estimations were pretty optimistic **(8:20 hours)**, but I completed it in over **12 hours** (without taking into account breaks). It wasn't a difficulty issue but more related to the time needed to implement all the requested features while doing so with SOLID principles in mind.
 
-This was the time it took me for each commit of day 20 until I fell asleep
+This was the time it took me for each commit until I fell asleep
+
 ![image](https://user-images.githubusercontent.com/79790514/111916588-f28efe00-8a7b-11eb-9bb8-9b5494cb1463.png)
 
-My goal was to try to do this project with a TDD approach since the requirements were pretty clear and strict, but since I saw that I had to implemente a several functionalities, I left the unit tests for the second half of the project.
+My goal was to try to do this project with a TDD approach since the requirements were pretty clear and strict, but since I saw that I had to implemente a several functionalities I left the unit tests for the second half of the project.
 
 Things I'm proud of:
 
@@ -23,25 +24,25 @@ Things I'm proud of:
 
   - **UnitySingletonPersistent<T>.cs:** Generic abstract class used to implement a Monobehaviour as Singleton. 
 
-  - **EnemyShootLogic.cs:** Separated the logic of enemy shooting to its own Controller. To implement the shooting of enemies I used a ```Dictionary<int, List<Enemy>>``` enemiesPerColumn that separates each enemy to its own column and the iterates over it to get the lower enemy of the column and command it to shoot.
+  - **EnemyShootLogic.cs:** Separated the logic of enemy shooting to its own Controller. To implement the shooting of enemies I used a ```Dictionary<int, List<Enemy>>``` enemiesPerColumn that separates each enemy into its own column and the iterates over it to get the closest enemy to player, and then make it shoot.
   
   - Kept **modularity** and **extension** from start. Separation of concerns.
 
-  - Used several **patterns** over the project when needed that were pretty useful in the long run(Object Pooling, Observer Pattern with delegates, "MVC", Singleton). I did not used a StateMachine for handling Win/Lose scenarios and instead went with subscription to static events of LevelManager to handle the state.
+  - Used several **patterns** over the project when needed that were pretty useful in the long run(Object Pooling, Observer Pattern with delegates, "MVC", Singleton). I did not used a StateMachine for handling Win/Lose scenarios and instead went along with subscription to static events of LevelManager to handle the state.
 
 Also pretty good:
 
-  - Unit Testing of Correct level Building, Player and Enemy shooting and moving logic, and bunker logic.
+  - Unit Testing of Correct level Building, Player and Enemy shooting and moving, and bunker logic.
 
   - Since it was prohibited to use PlayerPrefs to store data, I used **JsonUtility** to store the highscore with a **JSON**.
   
-  - **LevelBuilder.cs and neighbour logic**: It took me much less time that I though of to implement the enemy creation and assigning its neighbours (Estimated 1 hour but took 20 min), but I have worked a lot already with two-dimensional arrays. What really took me time from this requirement was the Object Pool.
+  - **LevelBuilder.cs and neighbour logic**: It took me much less time that I though of to implement the enemy creation and assigning its neighbours (Estimated 1 hour but took 20 min), but since I have worked a lot already with two-dimensional arrays it was pretty simple. What really took me time from this requirement was the Object Pool.
 
-  - Implemented Audio and base animation at start
+  - Implemented Audio and base animation at start.
 
 Things to be improved:
 
-  - My biggest regret is the lack of time I had to implement a creative twist to this project. I had several ideas (switching player for enemies setting the enemies as: US, task and bug Tickets that the dev has to destroy...) but I already took over 11 hours to finish it, so I though it was not fair to keep implementing elements into this project.
+  - My biggest regret is the lack of time I had to implement some creative twist to this project. I had several ideas (switching player for enemies setting the enemies as: US, task and bug Tickets that the dev has to destroy...) but I already took over 12 hours to finish it, so I though it was not fair to keep implementing elements into this project.
 
   - I wanted to decouple User's input from its view on MainCharacter.cs but I did not have time when I noticed.
 
@@ -114,7 +115,7 @@ The estimations are done taking into account the time it took for each commit.
 
 ### Unit Testing ~ 80 min
 
-- I add to this task 100 minutes over the project. 40 minutes or so were spent working on all the Unit test, the rest is time lost tweaking some scripts after adding elements to previous scripts (In a proper SOLID world, this shouldn't happen).
+- This task was 30% implementation, 70% bugfixing. 40 minutes or so were spent working on all the Unit test, the rest is time lost tweaking some scripts after adding elements to previous scripts (In a proper SOLID world, this shouldn't happen).
 - Since I was using ScriptableObjects, I had some issues testing them without proper initialitation of those config files, so a lot of variables of config files have values already set up.
 - I wasn't able to finish all the tests I wanted but I already spent a lot of my time working on them.
 
