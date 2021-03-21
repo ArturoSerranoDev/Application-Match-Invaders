@@ -17,7 +17,6 @@ namespace Tests
     public class PlayerShootingTest
     {
         MainCharacter player;
-        GameObject bullet;
     
         [SetUp]
         public void Setup()

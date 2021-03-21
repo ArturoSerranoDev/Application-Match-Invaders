@@ -31,7 +31,8 @@ public class LevelBuilder : MonoBehaviour
         GameObject player = PoolManager.Instance.Spawn(playerPrefab, playerStartingPos, Quaternion.identity);
         MainCharacter playerManager = player.GetComponent<MainCharacter>();
         
-        playerManager.SetData(levelConfig.playerConfig);
+        if(levelConfig.playerConfig != null)
+            playerManager.SetData(levelConfig.playerConfig);
 
         Player = playerManager;
 
@@ -51,7 +52,9 @@ public class LevelBuilder : MonoBehaviour
                 GameObject newEnemyGO = PoolManager.Instance.Spawn(enemyPrefab, enemyPos, Quaternion.identity);
 
                 Enemy newEnemy = newEnemyGO.GetComponent<Enemy>();
-                newEnemy.SetData(levelConfig.enemyConfig, new Vector2Int(i,j));
+                
+                if(levelConfig.enemyConfig != null)
+                    newEnemy.SetData(levelConfig.enemyConfig, new Vector2Int(i,j));
 
                 // Add to array for easier handling of neighbours
                 enemies[i,j] = newEnemy;

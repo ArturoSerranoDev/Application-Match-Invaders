@@ -158,7 +158,7 @@ public class LevelManager : MonoBehaviour
         enemyShootManager.Reset();
         PoolManager.Instance.Reset();
         
-        //uiGameManager.Reset();
+        uiGameManager.OnGameStart();
     }
     void SaveHighScore()
     {

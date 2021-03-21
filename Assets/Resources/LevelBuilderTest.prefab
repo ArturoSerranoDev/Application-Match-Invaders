@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1143907768496673908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143907768496673909}
+  - component: {fileID: 1143907768496673910}
+  m_Layer: 0
+  m_Name: Level Builder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143907768496673909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143907768496673908}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1143907768496673910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143907768496673908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7d788da84cc1c499f58ada2145a734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 6554620371838008082, guid: dc31cab34e45d9249aeb634052e3b0f0,
+    type: 3}
+  enemyPrefab: {fileID: 3927843902562760983, guid: fcaf24b700c9df345aa8fd7450c72fe2,
+    type: 3}
+  bunkerPrefab: {fileID: 6301740559580650115, guid: 4fbdbee441c70d240a0a258811814968,
+    type: 3}
+  bulletPrefab: {fileID: 1366015263815399652, guid: feae25dcb78974a4285c6c604b31fb06,
+    type: 3}
+  playerStartingPos: {x: 0, y: 0, z: 0}
+  enemyStartingPos: {x: -14, y: 10, z: 0}
+  enemyEndPos: {x: 14, y: 16, z: 0}
+  bunkerStartingPos: {x: 10, y: 2, z: 0}

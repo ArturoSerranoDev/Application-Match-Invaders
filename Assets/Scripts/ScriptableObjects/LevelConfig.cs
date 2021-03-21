@@ -14,6 +14,6 @@ public class LevelConfig : ScriptableObject
     public EnemyConfig enemyConfig;
     public PlayerConfig playerConfig;
 
-    public int enemiesPerRow;
-    public int enemiesPerColumn;
+    public int enemiesPerRow = 18;
+    public int enemiesPerColumn = 6;
 }

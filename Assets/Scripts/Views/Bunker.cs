@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bunker : MonoBehaviour
 {
-    public int lives = 5;
+    [SerializeField] int lives = 5;
 
     public void Init()
     {
@@ -25,5 +25,10 @@ public class Bunker : MonoBehaviour
     public void Despawn()
     {
         PoolManager.Instance.Despawn(this.gameObject);
+    }
+    
+    public int GetLives()
+    {
+        return lives;
     }
 }
