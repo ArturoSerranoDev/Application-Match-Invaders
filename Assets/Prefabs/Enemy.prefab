@@ -119,11 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2357db5adfa023e4882b61c28b5a8f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootEndPoint: {fileID: 1680690272974353284}
   bulletPrefab: {fileID: 1576625709281031644, guid: eb6620bbf65d30b45bd8ccd32bb09bf0,
     type: 3}
-  shootEndPoint: {fileID: 1680690272974353284}
-  moveStep: 0.2
-  moveDownStep: 0.75
+  moveStep: 0.15
+  moveDownStep: 0.5
   neighbours: []
   enemySpriteRenderer: {fileID: 3927843902562760980}
 --- !u!61 &2594061010466438404

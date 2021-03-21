@@ -16,8 +16,8 @@ public class Enemy : Ship
     public Transform shootEndPoint; 
     public GameObject bulletPrefab;
 
-    [SerializeField] float moveStep;
-    [SerializeField] float moveDownStep;
+    [SerializeField] float moveStep = 0.15f;
+    [SerializeField] float moveDownStep= 0.5f;
     
     public List<Enemy> neighbours = new List<Enemy>();
     public SpriteRenderer enemySpriteRenderer;
@@ -45,7 +45,7 @@ public class Enemy : Ship
         enemySpriteRenderer.color = config.availableColors[randomColorIndex];
     }
 
-    public void Move(Vector3 direction, float moveStep = 0.5f)
+    public void Move(Vector3 direction)
     {
         transform.position += direction * moveStep;
     }

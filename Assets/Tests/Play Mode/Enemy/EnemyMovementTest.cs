@@ -30,7 +30,7 @@ namespace Tests
         {
             float enemyInitialXPos = enemy.transform.position.x;
     
-            enemy.Move(Vector3.right, 0.5f);
+            enemy.Move(Vector3.right);
             yield return new WaitForSeconds(0.1f);
     
             Assert.AreNotEqual(enemyInitialXPos,enemy.transform.position.x);

@@ -35,8 +35,6 @@ public class UIGameManager : MonoBehaviour
         {
             livesImage[i].SetActive(true);
         }
-
-        playScoreText.text = string.Empty;
     }
 
     public void OnEnable()
@@ -72,6 +70,7 @@ public class UIGameManager : MonoBehaviour
     
     void OnGameLost()
     {
+        playScoreText.text = string.Empty;
         ShowEndLevelScreen(isVictory: false);
     }
 

@@ -31,10 +31,12 @@ public class LevelManager : MonoBehaviour
 
     bool isPaused;
     int enemiesCount;
+    
     void Start()
     {
         HighScore = SaveLoadController.Instance.GetLatestHighScore();
-        
+        Score = 0;
+
         Reset();
         LoadLevel();
     }
@@ -97,7 +99,7 @@ public class LevelManager : MonoBehaviour
     
     public void GoToNextLevel()
     {
-        CurrentLevel += 1;
+        Reset();
         LoadLevel();
 
         uiGameManager.OnGameStart();
@@ -124,7 +126,9 @@ public class LevelManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("LevelManager: You Won!!");
+        Debug.Log(chapterConfig.GetNumberOfLevels());
         onGameWon?.Invoke();
+        CurrentLevel += 1;
 
         // End Game
         if (CurrentLevel >= chapterConfig.GetNumberOfLevels())
@@ -145,13 +149,14 @@ public class LevelManager : MonoBehaviour
 
     public void ResetButtonPressed()
     {
+        Score = 0;
+
         Reset();
         LoadLevel();
     }
     public void Reset()
     {
         SaveHighScore();
-        Score = 0;
         
         levelBuilder.Reset();
         enemyMoveManager.Reset();
