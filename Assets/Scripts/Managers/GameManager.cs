@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary> Manages the state of the whole application </summary>
 public class GameManager : UnitySingletonPersistent<GameManager>
@@ -22,6 +22,11 @@ public class GameManager : UnitySingletonPersistent<GameManager>
     {
         Debug.Log("Loading game!");
         yield return new WaitForSeconds(.4f);
-        EditorSceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
     }
 }

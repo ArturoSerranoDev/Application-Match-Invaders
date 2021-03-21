@@ -58,6 +58,7 @@ public class Enemy : Ship
     void CycleSprite()
     {
         enemySpriteRenderer.sprite = isFirstSprite ? enemySecondSprite : enemyFirstSprite;
+        isFirstSprite = !isFirstSprite;
     }
 
     public void MoveDown()

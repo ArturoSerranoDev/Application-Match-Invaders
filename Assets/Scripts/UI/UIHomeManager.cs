@@ -13,10 +13,12 @@ public class UIHomeManager : MonoBehaviour
 {
     [SerializeField] Text highScoreText;
     [SerializeField] Button playButton;
+    [SerializeField] Button quitButton;
     
     void OnEnable()
     {
         playButton.onClick.AddListener(GameManager.Instance.Play);
+        quitButton.onClick.AddListener(GameManager.Instance.QuitApplication);
         
         if (!SaveLoadController.Instance.DoesSaveFileExist())
             return;
